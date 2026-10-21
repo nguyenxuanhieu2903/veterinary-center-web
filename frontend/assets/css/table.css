@@ -1,0 +1,178 @@
+/* ==========================================================================
+   DATA TABLE COMPONENT STYLES
+   ========================================================================== */
+
+.table-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.table-search-box {
+  position: relative;
+  min-width: 260px;
+  flex: 1;
+  max-width: 400px;
+}
+
+.table-search-box input {
+  padding-left: 36px;
+}
+
+.table-search-box .search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.table-filters {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: var(--radius-md, 10px);
+  border: 1px solid var(--border, #e2e8f0);
+  background: #ffffff;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.92rem;
+}
+
+.custom-table th {
+  background-color: #f8fafc;
+  padding: 14px 18px;
+  font-weight: 700;
+  color: var(--dark, #0f172a);
+  border-bottom: 1px solid var(--border, #e2e8f0);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.custom-table th.sortable {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.custom-table th.sortable:hover {
+  background-color: #f1f5f9;
+}
+
+.custom-table th .sort-icon {
+  margin-left: 6px;
+  font-size: 0.75rem;
+  color: var(--text-light, #94a3b8);
+}
+
+.custom-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border, #e2e8f0);
+  color: var(--text-main, #1e293b);
+  vertical-align: middle;
+}
+
+.custom-table tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.custom-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.custom-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Empty State & Error State */
+.table-empty-state, .table-error-state {
+  padding: 48px 20px;
+  text-align: center;
+}
+
+.table-empty-icon {
+  font-size: 3rem;
+  margin-bottom: 12px;
+  opacity: 0.7;
+}
+
+.table-empty-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 6px;
+}
+
+.table-empty-text {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* Pagination */
+.table-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-top: 1px solid var(--border, #e2e8f0);
+  background-color: #ffffff;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.pagination-info {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.page-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background-color: #ffffff;
+  color: var(--text-main);
+  font-size: 0.88rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.page-btn:hover:not(:disabled) {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.page-btn.active {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: #ffffff;
+}
+
+.page-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+

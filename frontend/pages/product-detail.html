@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi tiết sản phẩm - PetCare Clinic</title>
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/modal.css">
+  <link rel="stylesheet" href="../assets/css/products.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand-logo">
+        <span class="brand-icon">🐾</span>
+        <div>
+          <span>PetCare</span><span style="color: var(--primary);">Clinic</span>
+          <span style="display: block; font-size: 0.65rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.5px;">BÁC SĨ THÚ Y 24/7</span>
+        </div>
+      </a>
+
+      <!-- Sleek Horizontal Navigation Bar -->
+      <nav class="main-nav" id="main-nav">
+        <a href="../index.html" class="nav-link" data-link="home">
+          <span class="nav-icon">🏠</span>
+          <span>Trang chủ</span>
+        </a>
+        <a href="services.html" class="nav-link" data-link="services">
+          <span class="nav-icon">🩺</span>
+          <span>Dịch vụ y tế</span>
+        </a>
+        <a href="products.html" class="nav-link active" data-link="products">
+          <span class="nav-icon">🛍️</span>
+          <span>Cửa hàng Pet</span>
+        </a>
+        <a href="booking.html" class="nav-link" data-link="booking">
+          <span class="nav-icon">📅</span>
+          <span>Đặt lịch khám</span>
+        </a>
+        <a href="pets.html" class="nav-link" data-link="pets">
+          <span class="nav-icon">🐾</span>
+          <span>Hồ sơ thú cưng</span>
+        </a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="cart.html" class="header-icon-btn" title="Giỏ hàng của bạn">
+          <span style="font-size: 1.15rem;">🛒</span>
+          <span class="header-badge cart-badge">0</span>
+        </a>
+
+        <div id="header-user-area"></div>
+
+        <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Toggle Menu">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main style="padding: 30px 0 80px;">
+    <div class="container">
+      <!-- Back Button & Breadcrumb -->
+      <div class="d-flex items-center gap-3 flex-wrap" style="margin-bottom: 24px;">
+        <button type="button" class="btn-back" style="margin-bottom: 0;" onclick="goBack('products.html')" title="Quay lại Cửa hàng">
+          <span class="btn-back-icon">←</span>
+          <span>Quay lại</span>
+        </button>
+        <div style="font-size: 0.9rem; color: var(--text-muted);">
+          <a href="../index.html">Trang chủ</a> / <a href="products.html">Cửa hàng</a> / <span style="color: var(--primary); font-weight: 600;">Chi tiết sản phẩm</span>
+        </div>
+      </div>
+
+      <div class="grid grid-2 gap-5" style="align-items: start;">
+        <!-- Left: Image Gallery -->
+        <div>
+          <div style="border-radius: 20px; overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow-sm); margin-bottom: 16px;">
+            <img id="detail-main-img" src="" alt="Ảnh sản phẩm" style="width: 100%; height: 420px; object-fit: cover;">
+          </div>
+          <div class="d-flex gap-3">
+            <div style="border: 2px solid var(--primary); border-radius: 8px; overflow: hidden; width: 80px; height: 80px; cursor: pointer;">
+              <img id="detail-thumb-img" src="" alt="Thumbnail" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Info, Price, Quantity & Add to Cart -->
+        <div>
+          <div class="d-flex items-center gap-3" style="margin-bottom: 12px;">
+            <span class="badge badge-success">Chính hãng 100%</span>
+            <span style="font-size: 0.85rem; color: var(--text-muted);">Đã bán: <strong id="detail-product-sold">0</strong></span>
+            <span style="font-size: 0.85rem; color: #f59e0b; font-weight: 700;">★ <span id="detail-product-rating">5.0</span></span>
+          </div>
+
+          <h1 id="detail-product-name" style="font-size: 1.85rem; font-weight: 800; color: var(--dark); line-height: 1.3; margin-bottom: 16px;">
+            Đang tải...
+          </h1>
+
+          <div style="background-color: var(--primary-subtle); padding: 18px 24px; border-radius: var(--radius-md); margin-bottom: 24px; display: flex; align-items: baseline; gap: 14px;">
+            <span id="detail-product-price" style="font-size: 2.2rem; font-weight: 800; color: var(--primary);">0 ₫</span>
+            <span id="detail-product-old-price" style="font-size: 1.1rem; text-decoration: line-through; color: var(--text-muted);"></span>
+          </div>
+
+          <div style="margin-bottom: 20px;">
+            <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 8px;">Mô tả sản phẩm:</h4>
+            <p id="detail-product-desc" style="color: var(--text-main); line-height: 1.7; font-size: 0.95rem;"></p>
+          </div>
+
+          <div style="margin-bottom: 28px;">
+            <div class="d-flex items-center gap-4" style="margin-bottom: 8px;">
+              <span style="font-weight: 600; color: var(--text-muted);">Số lượng mua:</span>
+              <div class="quantity-selector">
+                <button type="button" class="quantity-btn" onclick="adjustDetailQuantity(-1)">−</button>
+                <input type="number" id="detail-product-qty" class="quantity-input" value="1" min="1" readonly>
+                <button type="button" class="quantity-btn" onclick="adjustDetailQuantity(1)">+</button>
+              </div>
+              <span style="font-size: 0.88rem; color: var(--text-muted);">
+                Tồn kho: <strong id="detail-product-stock" style="color: var(--dark);">0</strong> sản phẩm
+              </span>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="d-flex gap-3 flex-wrap" style="margin-bottom: 30px;">
+            <button class="btn btn-outline btn-lg flex-1" onclick="addCurrentProductToCart()">
+              🛒 Thêm vào giỏ hàng
+            </button>
+            <button class="btn btn-primary btn-lg flex-1" onclick="buyCurrentProductNow()">
+              ⚡ Mua ngay
+            </button>
+          </div>
+
+          <!-- Guarantees box -->
+          <div class="card" style="padding: 18px 22px; background-color: #fafbfc;">
+            <div class="d-flex items-center gap-3" style="margin-bottom: 10px;">
+              <span style="font-size: 1.2rem;">🛡️</span>
+              <span style="font-size: 0.9rem; font-weight: 600;">Cam kết chất lượng: Đổi trả trong 7 ngày nếu lỗi</span>
+            </div>
+            <div class="d-flex items-center gap-3">
+              <span style="font-size: 1.2rem;">🚚</span>
+              <span style="font-size: 0.9rem; font-weight: 600;">Giao hàng nhanh toàn quốc - Miễn phí đơn từ 500k</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Related Products -->
+      <div style="margin-top: 60px;">
+        <h3 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 24px;">Sản phẩm tương tự có thể bạn quan tâm</h3>
+        <div class="grid grid-4 gap-4" id="related-products-grid">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>&copy; 2026 PetCare Clinic. Giữ toàn quyền.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/modal.js"></script>
+  <script src="../assets/js/products.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initProductDetailPage();
+    });
+  </script>
+</body>
+</html>
+

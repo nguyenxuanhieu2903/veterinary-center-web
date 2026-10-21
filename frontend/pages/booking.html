@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đặt Lịch Khám Thú Y Trực Tuyến - PetCare Clinic</title>
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/modal.css">
+  <link rel="stylesheet" href="../assets/css/booking.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand-logo">
+        <span class="brand-icon">🐾</span>
+        <div>
+          <span>PetCare</span><span style="color: var(--primary);">Clinic</span>
+          <span style="display: block; font-size: 0.65rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.5px;">BÁC SĨ THÚ Y 24/7</span>
+        </div>
+      </a>
+
+      <!-- Sleek Horizontal Navigation Bar -->
+      <nav class="main-nav" id="main-nav">
+        <a href="../index.html" class="nav-link" data-link="home">
+          <span class="nav-icon">🏠</span>
+          <span>Trang chủ</span>
+        </a>
+        <a href="services.html" class="nav-link" data-link="services">
+          <span class="nav-icon">🩺</span>
+          <span>Dịch vụ y tế</span>
+        </a>
+        <a href="products.html" class="nav-link" data-link="products">
+          <span class="nav-icon">🛍️</span>
+          <span>Cửa hàng Pet</span>
+        </a>
+        <a href="booking.html" class="nav-link active" data-link="booking">
+          <span class="nav-icon">📅</span>
+          <span>Đặt lịch khám</span>
+        </a>
+        <a href="pets.html" class="nav-link" data-link="pets">
+          <span class="nav-icon">🐾</span>
+          <span>Hồ sơ thú cưng</span>
+        </a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="cart.html" class="header-icon-btn" title="Giỏ hàng của bạn">
+          <span style="font-size: 1.15rem;">🛒</span>
+          <span class="header-badge cart-badge">0</span>
+        </a>
+
+        <div id="header-user-area"></div>
+
+        <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Toggle Menu">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main style="padding: 30px 0 80px;">
+    <div class="container" style="max-width: 860px;">
+      <!-- Back Button -->
+      <button type="button" class="btn-back" onclick="goBack('services.html')" title="Quay lại">
+        <span class="btn-back-icon">←</span>
+        <span>Quay lại</span>
+      </button>
+
+      <!-- Title -->
+      <div class="text-center" style="margin-bottom: 36px;">
+        <span class="badge badge-primary" style="margin-bottom: 8px;">ĐẶT HẸN TRỰC TUYẾN 24/7</span>
+        <h1 style="font-size: 2.2rem; font-weight: 800; color: var(--dark); margin-bottom: 8px;">Đặt Lịch Khám Thú Y</h1>
+        <p style="color: var(--text-muted); font-size: 1rem;">Hoàn tất 4 bước đơn giản để bác sĩ chuẩn bị đón tiếp bé chu đáo nhất.</p>
+      </div>
+
+      <!-- 4-Step Stepper Header -->
+      <div class="booking-stepper">
+        <div class="step-indicator active" id="step-indicator-1" onclick="goToStep(1)">
+          <div class="step-circle">1</div>
+          <div class="step-title">Chọn Thú Cưng</div>
+        </div>
+
+        <div class="step-indicator" id="step-indicator-2" onclick="goToStep(2)">
+          <div class="step-circle">2</div>
+          <div class="step-title">Dịch Vụ & Bác Sĩ</div>
+        </div>
+
+        <div class="step-indicator" id="step-indicator-3" onclick="goToStep(3)">
+          <div class="step-circle">3</div>
+          <div class="step-title">Ngày & Giờ Khám</div>
+        </div>
+
+        <div class="step-indicator" id="step-indicator-4" onclick="goToStep(4)">
+          <div class="step-circle">4</div>
+          <div class="step-title">Xác Nhận Lịch</div>
+        </div>
+      </div>
+
+      <!-- Wizard Step 1: Pet Choice -->
+      <div class="card booking-step-content active" id="booking-step-1">
+        <div class="card-header">
+          <h2 class="card-title">Bước 1: Chọn Thú Cưng Cần Khám</h2>
+          <a href="pets.html" class="btn btn-outline btn-sm">+ Thêm thú cưng mới</a>
+        </div>
+
+        <div class="pet-selection-grid" id="booking-pets-grid">
+          <!-- Rendered dynamically by booking.js -->
+        </div>
+
+        <div class="d-flex justify-end">
+          <button type="button" class="btn btn-primary btn-lg" onclick="goToStep(2)">
+            Tiếp tục: Chọn Dịch vụ →
+          </button>
+        </div>
+      </div>
+
+      <!-- Wizard Step 2: Service & Doctor Choice -->
+      <div class="card booking-step-content" id="booking-step-2">
+        <div class="card-header">
+          <h2 class="card-title">Bước 2: Chọn Dịch Vụ & Bác Sĩ Phụ Trách</h2>
+        </div>
+
+        <div class="form-group">
+          <label for="booking-service-select" class="form-label required">Dịch vụ y tế cần sử dụng</label>
+          <select id="booking-service-select" class="form-control" style="font-size: 1rem; padding: 12px;">
+            <!-- Rendered dynamically -->
+          </select>
+        </div>
+
+        <div class="form-group" style="margin-top: 20px;">
+          <label for="booking-doctor-select" class="form-label">Chọn Bác sĩ chuyên khoa (Tùy chọn)</label>
+          <select id="booking-doctor-select" class="form-control" style="font-size: 1rem; padding: 12px;">
+            <!-- Rendered dynamically -->
+          </select>
+          <span style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; display: block;">
+            * Nếu bạn để trống, hệ thống sẽ tự động chỉ định bác sĩ chuyên khoa phù hợp đang trực vào khung giờ bạn chọn.
+          </span>
+        </div>
+
+        <div class="d-flex justify-between items-center" style="margin-top: 30px;">
+          <button type="button" class="btn btn-outline" onclick="goToStep(1)">← Quay lại</button>
+          <button type="button" class="btn btn-primary btn-lg" onclick="goToStep(3)">
+            Tiếp tục: Chọn Thời gian →
+          </button>
+        </div>
+      </div>
+
+      <!-- Wizard Step 3: Date & Time Picker -->
+      <div class="card booking-step-content" id="booking-step-3">
+        <div class="card-header">
+          <h2 class="card-title">Bước 3: Chọn Ngày & Khung Giờ Khám</h2>
+        </div>
+
+        <div class="form-group">
+          <label for="booking-date" class="form-label required">Ngày đến khám</label>
+          <input type="date" id="booking-date" class="form-control" style="max-width: 280px; font-weight: 700;">
+          <span style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; display: block;">
+            * Hệ thống tự động chặn ngày trong quá khứ.
+          </span>
+        </div>
+
+        <div class="form-group" style="margin-top: 24px;">
+          <label class="form-label required">Chọn khung giờ còn trống:</label>
+          <div class="time-slots-grid" id="booking-time-slots">
+            <!-- Rendered dynamically by booking.js with availability checks -->
+          </div>
+          <div class="d-flex gap-4 items-center" style="margin-top: 16px; font-size: 0.82rem; color: var(--text-muted);">
+            <span>🟩 Trống (Có thể đặt)</span>
+            <span>🟥 Kín lịch (Đã có người đặt)</span>
+          </div>
+        </div>
+
+        <div class="d-flex justify-between items-center" style="margin-top: 30px;">
+          <button type="button" class="btn btn-outline" onclick="goToStep(2)">← Quay lại</button>
+          <button type="button" class="btn btn-primary btn-lg" onclick="goToStep(4)">
+            Tiếp tục: Xác nhận & Triệu chứng →
+          </button>
+        </div>
+      </div>
+
+      <!-- Wizard Step 4: Symptoms, Notes & Confirmation -->
+      <div class="card booking-step-content" id="booking-step-4">
+        <div class="card-header">
+          <h2 class="card-title">Bước 4: Triệu Chứng & Xác Nhận Đặt Lịch</h2>
+        </div>
+
+        <!-- Contact & Symptom Inputs -->
+        <div class="grid grid-2 gap-3" style="margin-bottom: 18px;">
+          <div class="form-group">
+            <label for="booking-cust-name" class="form-label required">Họ tên người đặt</label>
+            <input type="text" id="booking-cust-name" class="form-control" placeholder="Nguyễn Văn A" required>
+          </div>
+          <div class="form-group">
+            <label for="booking-cust-phone" class="form-label required">Số điện thoại xác nhận</label>
+            <input type="tel" id="booking-cust-phone" class="form-control" placeholder="0912 345 678" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="booking-symptom" class="form-label">Triệu chứng của thú cưng hoặc lý do khám</label>
+          <textarea id="booking-symptom" class="form-control" rows="3" placeholder="VD: Bỏ ăn 2 ngày nay, sốt, hay hắt hơi hoặc chỉ đến tiêm phòng định kỳ..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="booking-notes" class="form-label">Ghi chú bổ sung cho bác sĩ</label>
+          <input type="text" id="booking-notes" class="form-control" placeholder="VD: Thú cưng hơi nhát, cần bế nhẹ nhàng...">
+        </div>
+
+        <!-- Recap Box -->
+        <h4 style="font-size: 1rem; font-weight: 700; margin: 24px 0 12px; color: var(--dark);">
+          Tóm Tắt Lịch Hẹn Đã Chọn:
+        </h4>
+        <div class="booking-recap-box">
+          <div class="recap-item">
+            <span style="color: var(--text-muted);">Thú cưng khám:</span>
+            <strong id="recap-pet">---</strong>
+          </div>
+          <div class="recap-item">
+            <span style="color: var(--text-muted);">Dịch vụ:</span>
+            <strong id="recap-service">---</strong>
+          </div>
+          <div class="recap-item">
+            <span style="color: var(--text-muted);">Chi phí dự kiến:</span>
+            <strong id="recap-price" style="color: var(--primary);">---</strong>
+          </div>
+          <div class="recap-item">
+            <span style="color: var(--text-muted);">Bác sĩ phụ trách:</span>
+            <strong id="recap-doctor">---</strong>
+          </div>
+          <div class="recap-item">
+            <span style="color: var(--text-muted);">Thời gian khám:</span>
+            <strong id="recap-datetime" style="color: var(--danger);">---</strong>
+          </div>
+          <div class="recap-item">
+            <span style="color: var(--text-muted);">Người liên hệ:</span>
+            <span id="recap-customer">---</span>
+          </div>
+          <div class="recap-item">
+            <span style="color: var(--text-muted);">Lý do khám:</span>
+            <span id="recap-symptom">---</span>
+          </div>
+        </div>
+
+        <div class="d-flex justify-between items-center" style="margin-top: 30px;">
+          <button type="button" class="btn btn-outline" onclick="goToStep(3)">← Quay lại</button>
+          <button type="button" id="btn-submit-booking" class="btn btn-primary btn-lg" onclick="submitAppointmentBooking()">
+            📅 Hoàn tất Đặt Lịch Khám
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal: Booking Success Confirmation -->
+  <div class="modal-backdrop" id="booking-success-modal">
+    <div class="modal-dialog">
+      <div class="modal-body text-center" style="padding: 40px 24px;">
+        <div style="font-size: 4rem; margin-bottom: 12px;">🎉</div>
+        <h2 style="font-size: 1.6rem; font-weight: 800; color: var(--success); margin-bottom: 8px;">
+          Đặt Lịch Khám Thành Công!
+        </h2>
+        <p style="color: var(--text-muted); margin-bottom: 24px;">
+          Lịch khám của bạn đã được ghi nhận vào hệ thống PetCare Clinic. Bác sĩ trực sẽ liên hệ xác nhận trong ít phút.
+        </p>
+
+        <div style="background-color: #f8fafc; border: 1px dashed var(--border); border-radius: 12px; padding: 20px; text-align: left; margin-bottom: 24px;">
+          <div class="d-flex justify-between" style="margin-bottom: 10px;">
+            <span style="color: var(--text-muted);">Mã lịch khám:</span>
+            <strong id="modal-app-id" style="color: var(--primary); font-size: 1.15rem;">---</strong>
+          </div>
+          <div class="d-flex justify-between" style="margin-bottom: 10px;">
+            <span style="color: var(--text-muted);">Thú cưng:</span>
+            <strong id="modal-app-pet">---</strong>
+          </div>
+          <div class="d-flex justify-between" style="margin-bottom: 10px;">
+            <span style="color: var(--text-muted);">Dịch vụ:</span>
+            <strong id="modal-app-service">---</strong>
+          </div>
+          <div class="d-flex justify-between" style="margin-bottom: 10px;">
+            <span style="color: var(--text-muted);">Thời gian:</span>
+            <strong id="modal-app-time" style="color: var(--danger);">---</strong>
+          </div>
+          <div class="d-flex justify-between">
+            <span style="color: var(--text-muted);">Trạng thái:</span>
+            <span class="badge badge-warning">Chờ xác nhận</span>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2 justify-center">
+          <a href="pets.html" class="btn btn-outline">🐾 Xem Hồ Sơ Thú Cưng</a>
+          <a href="../index.html" class="btn btn-primary">🏠 Về Trang Chủ</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>&copy; 2026 PetCare Clinic. Giữ toàn quyền.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/modal.js"></script>
+  <script src="../assets/js/booking.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initBookingWizard();
+    });
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản lý Hồ sơ Thú cưng - PetCare Clinic</title>
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/modal.css">
+  <link rel="stylesheet" href="../assets/css/table.css">
+  <link rel="stylesheet" href="../assets/css/pets.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand-logo">
+        <span class="brand-icon">🐾</span>
+        <div>
+          <span>PetCare</span><span style="color: var(--primary);">Clinic</span>
+          <span style="display: block; font-size: 0.65rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.5px;">BÁC SĨ THÚ Y 24/7</span>
+        </div>
+      </a>
+
+      <!-- Sleek Horizontal Navigation Bar -->
+      <nav class="main-nav" id="main-nav">
+        <a href="../index.html" class="nav-link" data-link="home">
+          <span class="nav-icon">🏠</span>
+          <span>Trang chủ</span>
+        </a>
+        <a href="services.html" class="nav-link" data-link="services">
+          <span class="nav-icon">🩺</span>
+          <span>Dịch vụ y tế</span>
+        </a>
+        <a href="products.html" class="nav-link" data-link="products">
+          <span class="nav-icon">🛍️</span>
+          <span>Cửa hàng Pet</span>
+        </a>
+        <a href="booking.html" class="nav-link" data-link="booking">
+          <span class="nav-icon">📅</span>
+          <span>Đặt lịch khám</span>
+        </a>
+        <a href="pets.html" class="nav-link active" data-link="pets">
+          <span class="nav-icon">🐾</span>
+          <span>Hồ sơ thú cưng</span>
+        </a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="cart.html" class="header-icon-btn" title="Giỏ hàng của bạn">
+          <span style="font-size: 1.15rem;">🛒</span>
+          <span class="header-badge cart-badge">0</span>
+        </a>
+
+        <div id="header-user-area"></div>
+
+        <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Toggle Menu">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main style="padding: 30px 0 80px;">
+    <div class="container">
+      <!-- Back Button -->
+      <button type="button" class="btn-back" onclick="goBack('../index.html')" title="Quay lại Trang chủ">
+        <span class="btn-back-icon">←</span>
+        <span>Quay lại</span>
+      </button>
+
+      <!-- Title & CTA Bar -->
+      <div class="d-flex items-center justify-between flex-wrap gap-3" style="margin-bottom: 30px;">
+        <div>
+          <h1 style="font-size: 2rem; font-weight: 800; color: var(--dark); margin-bottom: 4px;">Danh Sách Thú Cưng</h1>
+          <p style="color: var(--text-muted);">Quản lý hồ sơ tiêm chủng, lịch sử khám và đặt lịch nhanh cho các bé yêu của bạn.</p>
+        </div>
+        <button class="btn btn-primary btn-lg" onclick="openPetModal()">
+          ➕ Thêm thú cưng mới
+        </button>
+      </div>
+
+      <!-- Toolbar: Search & Species Filters -->
+      <div class="card" style="padding: 16px 20px; margin-bottom: 30px;">
+        <div class="d-flex items-center justify-between flex-wrap gap-3">
+          <div class="d-flex items-center gap-2 flex-wrap">
+            <button class="btn btn-primary btn-sm pet-species-filter-btn active" data-species="all">Tất cả loài</button>
+            <button class="btn btn-outline btn-sm pet-species-filter-btn" data-species="cat">🐱 Mèo cưng</button>
+            <button class="btn btn-outline btn-sm pet-species-filter-btn" data-species="dog">🐶 Chó cưng</button>
+          </div>
+
+          <div style="position: relative; min-width: 260px;">
+            <input type="text" id="pet-search-input" class="form-control" placeholder="Tìm kiếm theo tên hoặc giống..." style="padding-left: 36px;">
+            <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted);">🔍</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pets Grid -->
+      <div class="grid grid-3 gap-4" id="pets-grid">
+        <!-- Rendered dynamically by pets.js -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal: Add / Edit Pet Form -->
+  <div class="modal-backdrop" id="pet-modal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-header">
+        <h3 class="modal-title" id="pet-modal-title">Thêm hồ sơ thú cưng</h3>
+        <button class="modal-close" onclick="ModalManager.close('pet-modal')">&times;</button>
+      </div>
+      <form id="pet-form" onsubmit="handlePetFormSubmit(event)">
+        <div class="modal-body">
+          <input type="hidden" id="pet-form-id">
+
+          <div class="grid grid-2 gap-3">
+            <div class="form-group">
+              <label for="pet-name" class="form-label required">Tên thú cưng</label>
+              <input type="text" id="pet-name" class="form-control" placeholder="VD: Miu Miu, Cún Bơ..." required>
+            </div>
+            <div class="form-group">
+              <label for="pet-species" class="form-label required">Loài</label>
+              <select id="pet-species" class="form-control" required>
+                <option value="cat">Mèo</option>
+                <option value="dog">Chó</option>
+                <option value="other">Loài khác</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-2 gap-3">
+            <div class="form-group">
+              <label for="pet-breed" class="form-label required">Giống loài</label>
+              <input type="text" id="pet-breed" class="form-control" placeholder="VD: Mèo Anh lông ngắn, Poodle..." required>
+            </div>
+            <div class="form-group">
+              <label for="pet-gender" class="form-label">Giới tính</label>
+              <select id="pet-gender" class="form-control">
+                <option value="Đực">Đực</option>
+                <option value="Cái">Cái</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-3 gap-3">
+            <div class="form-group">
+              <label for="pet-birth" class="form-label">Ngày sinh</label>
+              <input type="date" id="pet-birth" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="pet-weight" class="form-label">Cân nặng (kg)</label>
+              <input type="number" step="0.1" id="pet-weight" class="form-control" placeholder="VD: 4.5">
+            </div>
+            <div class="form-group">
+              <label for="pet-color" class="form-label">Màu lông</label>
+              <input type="text" id="pet-color" class="form-control" placeholder="VD: Vàng, Trắng xám...">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="pet-image" class="form-label">Đường dẫn ảnh đại diện (URL)</label>
+            <input type="url" id="pet-image" class="form-control" placeholder="https://images.unsplash.com/..." oninput="document.getElementById('pet-image-preview').src = this.value; document.getElementById('pet-image-preview').style.display = this.value ? 'block' : 'none';">
+            <div class="image-preview-box">
+              <img id="pet-image-preview" src="" alt="Xem trước ảnh thú cưng" style="display: none;">
+              <span style="font-size: 0.85rem; color: var(--text-muted);">Xem trước hình ảnh thú cưng</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="pet-notes" class="form-label">Ghi chú sức khỏe / Dị ứng</label>
+            <textarea id="pet-notes" class="form-control" rows="3" placeholder="VD: Bé từng dị ứng với thuốc hạ sốt, nhút nhát..."></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="ModalManager.close('pet-modal')">Hủy bỏ</button>
+          <button type="submit" class="btn btn-primary">Lưu hồ sơ thú cưng</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>&copy; 2026 PetCare Clinic. Giữ toàn quyền.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/modal.js"></script>
+  <script src="../assets/js/pets.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initPetsPage();
+    });
+  </script>
+</body>
+</html>
+

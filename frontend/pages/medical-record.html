@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hồ Sơ Bệnh Án Điện Tử - PetCare Clinic</title>
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/modal.css">
+  <link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    <!-- Collapsible Sidebar Component -->
+    <aside class="dashboard-sidebar" id="dashboard-sidebar">
+      <div class="sidebar-header">
+        <a href="../index.html" class="sidebar-brand">
+          <span class="brand-icon">🐾</span>
+          <span class="sidebar-brand-text">PetCare<span style="color: var(--primary);">Doctor</span></span>
+        </a>
+        <button class="sidebar-toggle-btn" id="btn-toggle-sidebar" onclick="toggleSidebar()" title="Thu gọn / Mở rộng">
+          ◀
+        </button>
+      </div>
+
+      <div class="sidebar-user-card">
+        <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=120" alt="Avatar" class="sidebar-user-avatar" id="sidebar-user-avatar">
+        <div class="sidebar-user-info">
+          <h4 id="sidebar-user-name">BS. Nguyễn Văn An</h4>
+          <span class="badge badge-primary" id="sidebar-user-role">Bác sĩ Thú Y</span>
+        </div>
+      </div>
+
+      <div class="sidebar-menu-wrapper">
+        <div class="sidebar-group">
+          <div class="sidebar-heading">BÀN LÀM VIỆC BÁC SĨ</div>
+          <ul class="sidebar-menu">
+            <li>
+              <a href="doctor-dashboard.html" class="sidebar-link">
+                <span class="sidebar-icon">🩺</span>
+                <span class="sidebar-text">Lịch khám hôm nay</span>
+              </a>
+            </li>
+            <li>
+              <a href="medical-record.html" class="sidebar-link active">
+                <span class="sidebar-icon">📋</span>
+                <span class="sidebar-text">Hồ sơ Bệnh án</span>
+              </a>
+            </li>
+            <li>
+              <a href="pets.html" class="sidebar-link">
+                <span class="sidebar-icon">🐾</span>
+                <span class="sidebar-text">Tra cứu Thú cưng</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-group">
+          <div class="sidebar-heading">HỆ THỐNG</div>
+          <ul class="sidebar-menu">
+            <li>
+              <a href="../index.html" class="sidebar-link">
+                <span class="sidebar-icon">🌐</span>
+                <span class="sidebar-text">Portal Khách hàng</span>
+              </a>
+            </li>
+            <li>
+              <a href="admin-dashboard.html" class="sidebar-link">
+                <span class="sidebar-icon">🛡️</span>
+                <span class="sidebar-text">Bảng Admin</span>
+              </a>
+            </li>
+            <li>
+              <button onclick="logout()" class="sidebar-link" style="width: 100%; color: var(--danger); text-align: left; background: none; border: none; cursor: pointer;">
+                <span class="sidebar-icon">🚪</span>
+                <span class="sidebar-text">Đăng xuất</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="dashboard-main">
+      <header class="dashboard-topbar">
+        <div class="d-flex items-center gap-3">
+          <a href="doctor-dashboard.html" class="btn btn-outline btn-sm">← Về Bàn Khám</a>
+          <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--dark);">Hồ Sơ Bệnh Án Thú Cưng</h2>
+        </div>
+        <div>
+          <span class="badge badge-success">Bảo mật Y tế</span>
+        </div>
+      </header>
+
+      <div class="dashboard-content">
+        <form id="medical-record-form" onsubmit="handleSaveMedicalRecord(event)">
+          <!-- Patient & Appointment Card -->
+          <div class="card" style="margin-bottom: 24px; background: #fafbfc;">
+            <div class="d-flex justify-between items-center" style="margin-bottom: 16px;">
+              <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--dark);">
+                Thông Tin Bệnh Nhân & Chủ Nuôi
+              </h3>
+              <span class="badge badge-primary">Mã ca: <span id="med-app-id">AP001</span></span>
+            </div>
+
+            <div class="grid grid-3 gap-3" style="font-size: 0.95rem;">
+              <div>
+                <span style="color: var(--text-muted); display: block; font-size: 0.82rem;">Tên thú cưng & Loài:</span>
+                <strong id="med-pet-name">---</strong> (<span id="med-pet-species">---</span>)
+              </div>
+              <div>
+                <span style="color: var(--text-muted); display: block; font-size: 0.82rem;">Chủ nuôi & Liên lạc:</span>
+                <strong id="med-customer-name">---</strong>
+              </div>
+              <div>
+                <span style="color: var(--text-muted); display: block; font-size: 0.82rem;">Dịch vụ thực hiện:</span>
+                <strong id="med-service-name">---</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Clinical Examination Form -->
+          <div class="card" style="margin-bottom: 24px;">
+            <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--dark); margin-bottom: 20px;">
+              Kết Quả Thăm Khám Lâm Sàng
+            </h3>
+
+            <div class="grid grid-2 gap-3">
+              <div class="form-group">
+                <label for="med-weight" class="form-label required">Cân nặng khi khám (kg)</label>
+                <input type="number" step="0.1" id="med-weight" class="form-control" placeholder="VD: 4.2" required>
+              </div>
+              <div class="form-group">
+                <label for="med-temp" class="form-label required">Thân nhiệt đo được (°C)</label>
+                <input type="number" step="0.1" id="med-temp" class="form-control" placeholder="VD: 38.5 (Bình thường: 38 - 39.2°C)" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="med-symptom-input" class="form-label required">Triệu chứng & Bệnh sử ghi nhận</label>
+              <textarea id="med-symptom-input" class="form-control" rows="2" placeholder="Ghi nhận từ chủ nuôi và quan sát lâm sàng ban đầu..." required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="med-diagnosis" class="form-label required">Chẩn đoán của Bác sĩ</label>
+              <input type="text" id="med-diagnosis" class="form-control" placeholder="VD: Viêm đường hô hấp trên / Nấm da kẽ chân / Khỏe mạnh tiêm vaccine..." required>
+            </div>
+
+            <div class="form-group">
+              <label for="med-treatment" class="form-label required">Phương pháp điều trị / Liệu trình chỉ định</label>
+              <textarea id="med-treatment" class="form-control" rows="3" placeholder="Chi tiết các bước xử lý tại phòng khám và liệu trình điều trị..." required></textarea>
+            </div>
+          </div>
+
+          <!-- Prescription Section -->
+          <div class="card" style="margin-bottom: 24px;">
+            <div class="card-header">
+              <h3 class="card-title">Đơn Thuốc & Hướng Dẫn Điều Trị Tại Nhà</h3>
+              <button type="button" class="btn btn-outline btn-sm" onclick="addPrescriptionItem()">
+                ➕ Thêm thuốc vào đơn
+              </button>
+            </div>
+
+            <div id="prescription-list-container" style="margin-bottom: 14px;">
+              <!-- Rendered dynamically -->
+            </div>
+
+            <div class="grid grid-2 gap-3" style="margin-top: 18px;">
+              <div class="form-group">
+                <label for="med-reexam-date" class="form-label">Ngày hẹn tái khám (nếu có)</label>
+                <input type="date" id="med-reexam-date" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="med-notes" class="form-label">Lời dặn dò chế độ chăm sóc cho chủ nuôi</label>
+                <input type="text" id="med-notes" class="form-control" placeholder="VD: Giữ ấm, tránh tắm trong 3 ngày, uống nhiều nước...">
+              </div>
+            </div>
+          </div>
+
+          <!-- Form Actions -->
+          <div class="d-flex justify-between items-center">
+            <a href="doctor-dashboard.html" class="btn btn-outline">Hủy bỏ</a>
+            <button type="submit" class="btn btn-primary btn-lg">
+              💾 Lưu Bệnh Án & Hoàn Tất Ca Khám
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/modal.js"></script>
+  <script src="../assets/js/dashboard.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initMedicalRecordPage();
+    });
+  </script>
+</body>
+</html>
+

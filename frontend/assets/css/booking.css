@@ -1,0 +1,213 @@
+/* ==========================================================================
+   BOOKING APPOINTMENT STYLES (4-STEP WIZARD)
+   ========================================================================== */
+
+/* Wizard Stepper Progress Bar */
+.booking-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.booking-stepper::before {
+  content: '';
+  position: absolute;
+  top: 24px;
+  left: 40px;
+  right: 40px;
+  height: 3px;
+  background-color: var(--border);
+  z-index: 1;
+}
+
+.step-indicator {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  background-color: var(--bg-main);
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+.step-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 3px solid var(--border);
+  color: var(--text-muted);
+  font-weight: 800;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+  transition: all 0.3s ease;
+}
+
+.step-indicator.active .step-circle {
+  border-color: var(--primary);
+  background-color: var(--primary);
+  color: #ffffff;
+  box-shadow: 0 0 0 5px rgba(13, 148, 136, 0.2);
+}
+
+.step-indicator.completed .step-circle {
+  border-color: var(--success);
+  background-color: var(--success);
+  color: #ffffff;
+}
+
+.step-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.step-indicator.active .step-title {
+  color: var(--primary);
+}
+
+/* Wizard Steps Content Cards */
+.booking-step-content {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.booking-step-content.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Pet Choice Grid */
+.pet-selection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.pet-select-card {
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #ffffff;
+  position: relative;
+}
+
+.pet-select-card:hover {
+  border-color: var(--primary-light);
+  transform: translateY(-2px);
+}
+
+.pet-select-card.selected {
+  border-color: var(--primary);
+  background-color: var(--primary-subtle);
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.15);
+}
+
+.pet-select-card.selected::after {
+  content: '✓';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 22px;
+  height: 22px;
+  background-color: var(--primary);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pet-select-avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 10px;
+  border: 2px solid var(--border);
+}
+
+/* Time Slot Picker Grid */
+.time-slots-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.time-slot-btn {
+  padding: 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  background: #ffffff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--dark);
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.time-slot-btn:hover:not(:disabled) {
+  border-color: var(--primary);
+  background-color: var(--primary-subtle);
+  color: var(--primary);
+}
+
+.time-slot-btn.selected {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: #ffffff;
+}
+
+.time-slot-btn:disabled, .time-slot-btn.booked {
+  background-color: #f1f5f9;
+  color: #94a3b8;
+  border-color: #e2e8f0;
+  cursor: not-allowed;
+  position: relative;
+  text-decoration: line-through;
+}
+
+/* Booking Recap Summary Box */
+.booking-recap-box {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+}
+
+.recap-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+}
+
+.recap-item:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .step-title {
+    display: none;
+  }
+  .time-slots-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+

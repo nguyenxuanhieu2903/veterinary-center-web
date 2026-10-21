@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi tiết Hồ sơ Thú cưng - PetCare Clinic</title>
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/modal.css">
+  <link rel="stylesheet" href="../assets/css/pets.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand-logo">
+        <span class="brand-icon">🐾</span>
+        <div>
+          <span>PetCare</span><span style="color: var(--primary);">Clinic</span>
+          <span style="display: block; font-size: 0.65rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.5px;">BÁC SĨ THÚ Y 24/7</span>
+        </div>
+      </a>
+
+      <!-- Sleek Horizontal Navigation Bar -->
+      <nav class="main-nav" id="main-nav">
+        <a href="../index.html" class="nav-link" data-link="home">
+          <span class="nav-icon">🏠</span>
+          <span>Trang chủ</span>
+        </a>
+        <a href="services.html" class="nav-link" data-link="services">
+          <span class="nav-icon">🩺</span>
+          <span>Dịch vụ y tế</span>
+        </a>
+        <a href="products.html" class="nav-link" data-link="products">
+          <span class="nav-icon">🛍️</span>
+          <span>Cửa hàng Pet</span>
+        </a>
+        <a href="booking.html" class="nav-link" data-link="booking">
+          <span class="nav-icon">📅</span>
+          <span>Đặt lịch khám</span>
+        </a>
+        <a href="pets.html" class="nav-link active" data-link="pets">
+          <span class="nav-icon">🐾</span>
+          <span>Hồ sơ thú cưng</span>
+        </a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="cart.html" class="header-icon-btn" title="Giỏ hàng của bạn">
+          <span style="font-size: 1.15rem;">🛒</span>
+          <span class="header-badge cart-badge">0</span>
+        </a>
+
+        <div id="header-user-area"></div>
+
+        <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Toggle Menu">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main style="padding: 30px 0 80px;">
+    <div class="container">
+      <!-- Back Button & Breadcrumb -->
+      <div class="d-flex items-center gap-3 flex-wrap" style="margin-bottom: 24px;">
+        <button type="button" class="btn-back" style="margin-bottom: 0;" onclick="goBack('pets.html')" title="Quay lại Danh sách thú cưng">
+          <span class="btn-back-icon">←</span>
+          <span>Quay lại</span>
+        </button>
+        <div style="font-size: 0.9rem; color: var(--text-muted);">
+          <a href="../index.html">Trang chủ</a> / <a href="pets.html">Danh sách thú cưng</a> / <span style="color: var(--primary); font-weight: 600;">Hồ sơ bệnh án</span>
+        </div>
+      </div>
+
+      <div class="grid grid-2 gap-5" style="grid-template-columns: 0.8fr 1.2fr; align-items: start;">
+        <!-- Left: Pet Profile Card -->
+        <div class="card" style="padding: 28px;">
+          <div style="text-align: center; margin-bottom: 24px;">
+            <div style="width: 140px; height: 140px; border-radius: 50%; overflow: hidden; margin: 0 auto 16px; border: 4px solid var(--primary-light); box-shadow: var(--shadow-md);">
+              <img id="detail-pet-image" src="" alt="Ảnh thú cưng" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <h2 id="detail-pet-name" style="font-size: 1.8rem; font-weight: 800; color: var(--dark); margin-bottom: 4px;">---</h2>
+            <div id="detail-pet-breed" style="color: var(--primary); font-weight: 600;">---</div>
+          </div>
+
+          <div style="border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 18px 0; margin-bottom: 24px; font-size: 0.95rem;">
+            <div class="d-flex justify-between items-center" style="margin-bottom: 12px;">
+              <span style="color: var(--text-muted);">Loài:</span>
+              <strong id="detail-pet-species">---</strong>
+            </div>
+            <div class="d-flex justify-between items-center" style="margin-bottom: 12px;">
+              <span style="color: var(--text-muted);">Độ tuổi:</span>
+              <strong id="detail-pet-age">---</strong>
+            </div>
+            <div class="d-flex justify-between items-center" style="margin-bottom: 12px;">
+              <span style="color: var(--text-muted);">Cân nặng:</span>
+              <strong id="detail-pet-weight">---</strong>
+            </div>
+            <div class="d-flex justify-between items-center" style="margin-bottom: 12px;">
+              <span style="color: var(--text-muted);">Mã Microchip:</span>
+              <strong id="detail-pet-chip" style="color: var(--primary);">---</strong>
+            </div>
+            <div class="d-flex justify-between items-center">
+              <span style="color: var(--text-muted);">Tình trạng tiêm:</span>
+              <span class="badge badge-success">Đầy đủ sổ tiêm</span>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 24px;">
+            <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 8px;">Ghi chú y tế & Dị ứng:</h4>
+            <div id="detail-pet-notes" style="background-color: #f8fafc; padding: 12px 14px; border-radius: 8px; font-size: 0.88rem; color: var(--text-main); line-height: 1.6;">
+              ---
+            </div>
+          </div>
+
+          <a href="booking.html" id="btn-book-for-pet" class="btn btn-primary btn-block btn-lg">
+            📅 Đặt lịch khám cho bé
+          </a>
+        </div>
+
+        <!-- Right: Medical History Timeline -->
+        <div>
+          <div class="d-flex items-center justify-between" style="margin-bottom: 20px;">
+            <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--dark);">Lịch Sử Khám & Bệnh Án Điện Tử</h3>
+            <span class="badge badge-primary">Dữ liệu bảo mật y tế</span>
+          </div>
+
+          <!-- Medical History Records -->
+          <div class="medical-timeline" id="pet-medical-timeline">
+            <!-- Rendered dynamically by pets.js -->
+          </div>
+
+          <!-- Preventive Vaccine Records Card -->
+          <div class="card" style="margin-top: 30px;">
+            <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 16px;">Sổ theo dõi Tiêm Chủng Vaccine</h4>
+            <div class="table-responsive">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Loại Vaccine</th>
+                    <th>Ngày tiêm</th>
+                    <th>Bác sĩ thực hiện</th>
+                    <th>Hẹn mũi nhắc lại</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Vaccine 7 bệnh cho chó / 4 bệnh mèo</strong></td>
+                    <td>15/04/2026</td>
+                    <td>BS. Lê Hoàng Nam</td>
+                    <td><span class="badge badge-warning">15/04/2027</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Vaccine phòng dại (Rabies)</strong></td>
+                    <td>15/04/2026</td>
+                    <td>BS. Lê Hoàng Nam</td>
+                    <td><span class="badge badge-warning">15/04/2027</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>&copy; 2026 PetCare Clinic. Giữ toàn quyền.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/modal.js"></script>
+  <script src="../assets/js/pets.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initPetDetailPage();
+    });
+  </script>
+</body>
+</html>
+

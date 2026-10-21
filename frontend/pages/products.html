@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cửa Hàng Thú Cưng - PetCare Clinic</title>
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/modal.css">
+  <link rel="stylesheet" href="../assets/css/products.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand-logo">
+        <span class="brand-icon">🐾</span>
+        <div>
+          <span>PetCare</span><span style="color: var(--primary);">Clinic</span>
+          <span style="display: block; font-size: 0.65rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.5px;">BÁC SĨ THÚ Y 24/7</span>
+        </div>
+      </a>
+
+      <!-- Sleek Horizontal Navigation Bar -->
+      <nav class="main-nav" id="main-nav">
+        <a href="../index.html" class="nav-link" data-link="home">
+          <span class="nav-icon">🏠</span>
+          <span>Trang chủ</span>
+        </a>
+        <a href="services.html" class="nav-link" data-link="services">
+          <span class="nav-icon">🩺</span>
+          <span>Dịch vụ y tế</span>
+        </a>
+        <a href="products.html" class="nav-link active" data-link="products">
+          <span class="nav-icon">🛍️</span>
+          <span>Cửa hàng Pet</span>
+        </a>
+        <a href="booking.html" class="nav-link" data-link="booking">
+          <span class="nav-icon">📅</span>
+          <span>Đặt lịch khám</span>
+        </a>
+        <a href="pets.html" class="nav-link" data-link="pets">
+          <span class="nav-icon">🐾</span>
+          <span>Hồ sơ thú cưng</span>
+        </a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="cart.html" class="header-icon-btn" title="Giỏ hàng của bạn">
+          <span style="font-size: 1.15rem;">🛒</span>
+          <span class="header-badge cart-badge">0</span>
+        </a>
+
+        <div id="header-user-area"></div>
+
+        <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Toggle Menu">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Shop Main Content -->
+  <main style="padding: 30px 0 80px;">
+    <div class="container">
+      <!-- Back Button -->
+      <button type="button" class="btn-back" onclick="goBack('../index.html')" title="Quay lại Trang chủ">
+        <span class="btn-back-icon">←</span>
+        <span>Quay lại</span>
+      </button>
+
+      <!-- Breadcrumb & Top Bar -->
+      <div class="d-flex items-center justify-between flex-wrap gap-3" style="margin-bottom: 28px;">
+        <div>
+          <h1 style="font-size: 2rem; font-weight: 800; color: var(--dark); margin-bottom: 4px;">Cửa Hàng Dinh Dưỡng & Phụ Kiện</h1>
+          <p style="color: var(--text-muted);">Sản phẩm y tế thú y, thức ăn hạt cao cấp và đồ dùng chính hãng 100%.</p>
+        </div>
+
+        <div class="d-flex items-center gap-3">
+          <span class="badge badge-primary" id="products-count-badge">Đang tải...</span>
+          <select id="shop-sort-select" class="form-control" style="width: auto; padding: 8px 14px;">
+            <option value="featured">Sắp xếp: Nổi bật nhất</option>
+            <option value="price-asc">Giá tăng dần</option>
+            <option value="price-desc">Giá giảm dần</option>
+            <option value="sold">Bán chạy nhất</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Shop Grid Layout with Filter Sidebar -->
+      <div class="shop-layout">
+        <!-- Filter Sidebar -->
+        <aside class="filter-sidebar">
+          <!-- Search box -->
+          <div class="filter-group">
+            <h4 class="filter-title">Tìm kiếm</h4>
+            <div style="position: relative;">
+              <input type="text" id="shop-search-input" class="form-control" placeholder="Tên sản phẩm..." style="padding-left: 34px;">
+              <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-muted);">🔍</span>
+            </div>
+          </div>
+
+          <!-- Category filter -->
+          <div class="filter-group">
+            <h4 class="filter-title">Danh mục</h4>
+            <ul class="category-filter-list">
+              <li>
+                <div class="category-filter-item active" data-category="all">
+                  <span>Tất cả danh mục</span>
+                  <span>🐾</span>
+                </div>
+              </li>
+              <li>
+                <div class="category-filter-item" data-category="food">
+                  <span>Thức ăn & Dinh dưỡng</span>
+                  <span>🍖</span>
+                </div>
+              </li>
+              <li>
+                <div class="category-filter-item" data-category="care">
+                  <span>Vệ sinh & Sữa tắm</span>
+                  <span>🧴</span>
+                </div>
+              </li>
+              <li>
+                <div class="category-filter-item" data-category="medicine">
+                  <span>Thuốc & Trị ve rận</span>
+                  <span>💊</span>
+                </div>
+              </li>
+              <li>
+                <div class="category-filter-item" data-category="toy">
+                  <span>Đồ chơi cho bé</span>
+                  <span>🎾</span>
+                </div>
+              </li>
+              <li>
+                <div class="category-filter-item" data-category="accessory">
+                  <span>Balo & Phụ kiện</span>
+                  <span>🎒</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Price filter -->
+          <div class="filter-group">
+            <h4 class="filter-title">Khoảng giá</h4>
+            <div class="d-flex flex-column gap-2" style="font-size: 0.9rem;">
+              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                <input type="radio" name="price-filter" value="all" checked style="accent-color: var(--primary);">
+                <span>Tất cả mức giá</span>
+              </label>
+              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                <input type="radio" name="price-filter" value="under-100" style="accent-color: var(--primary);">
+                <span>Dưới 100.000 ₫</span>
+              </label>
+              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                <input type="radio" name="price-filter" value="100-300" style="accent-color: var(--primary);">
+                <span>100.000 ₫ - 300.000 ₫</span>
+              </label>
+              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                <input type="radio" name="price-filter" value="above-300" style="accent-color: var(--primary);">
+                <span>Trên 300.000 ₫</span>
+              </label>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Products List Area -->
+        <section>
+          <div class="grid grid-3 gap-4" id="products-grid">
+            <!-- Rendered dynamically by products.js -->
+          </div>
+
+          <div id="shop-pagination"></div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>&copy; 2026 PetCare Clinic. Giữ toàn quyền.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/modal.js"></script>
+  <script src="../assets/js/products.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initShopPage();
+    });
+  </script>
+</body>
+</html>
+

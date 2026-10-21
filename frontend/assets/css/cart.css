@@ -1,0 +1,140 @@
+/* ==========================================================================
+   CART & CHECKOUT STYLES
+   ========================================================================== */
+
+.cart-layout {
+  display: grid;
+  grid-template-columns: 1.6fr 0.9fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.cart-item-row {
+  display: grid;
+  grid-template-columns: 80px 1.5fr 1fr 1fr 40px;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.cart-item-row:last-child {
+  border-bottom: none;
+}
+
+.cart-item-img {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  border: 1px solid var(--border);
+}
+
+.cart-item-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--dark);
+  margin-bottom: 4px;
+}
+
+.cart-item-price {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.cart-item-subtotal {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--primary);
+  text-align: right;
+}
+
+.cart-summary-box {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  position: sticky;
+  top: 90px;
+  box-shadow: var(--shadow-sm);
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+}
+
+.summary-row.total-row {
+  border-top: 2px dashed var(--border);
+  padding-top: 16px;
+  margin-top: 16px;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--dark);
+}
+
+/* Payment Methods Grid */
+.payment-methods-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.payment-method-card {
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background-color: #fff;
+}
+
+.payment-method-card.selected, .payment-method-card:hover {
+  border-color: var(--primary);
+  background-color: var(--primary-subtle);
+}
+
+.payment-method-card .method-icon {
+  font-size: 1.5rem;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.payment-method-card .method-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+/* QR Payment Code Box */
+.vietqr-box {
+  background: #f8fafc;
+  border: 1px dashed var(--primary);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  text-align: center;
+  margin-top: 16px;
+  display: none;
+}
+
+.vietqr-box.show {
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .cart-layout {
+    grid-template-columns: 1fr;
+  }
+  .cart-item-row {
+    grid-template-columns: 70px 1fr 1fr auto;
+  }
+  .payment-methods-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

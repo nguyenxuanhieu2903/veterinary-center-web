@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PetCare Clinic - Hệ Thống Bệnh Viện Thú Y & Chăm Sóc Thú Cưng 24/7</title>
+  
+  <!-- Core Design System CSS -->
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/modal.css">
+  <link rel="stylesheet" href="assets/css/table.css">
+  <link rel="stylesheet" href="assets/css/customer-home.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo">
+        <span class="brand-icon">🐾</span>
+        <div>
+          <span>PetCare</span><span style="color: var(--primary);">Clinic</span>
+          <span style="display: block; font-size: 0.65rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.5px;">BÁC SĨ THÚ Y 24/7</span>
+        </div>
+      </a>
+
+      <!-- Sleek Horizontal Navigation Bar -->
+      <nav class="main-nav" id="main-nav">
+        <a href="index.html" class="nav-link active" data-link="home">
+          <span class="nav-icon">🏠</span>
+          <span>Trang chủ</span>
+        </a>
+        <a href="pages/services.html" class="nav-link" data-link="services">
+          <span class="nav-icon">🩺</span>
+          <span>Dịch vụ y tế</span>
+        </a>
+        <a href="pages/products.html" class="nav-link" data-link="products">
+          <span class="nav-icon">🛍️</span>
+          <span>Cửa hàng Pet</span>
+        </a>
+        <a href="pages/booking.html" class="nav-link" data-link="booking">
+          <span class="nav-icon">📅</span>
+          <span>Đặt lịch khám</span>
+        </a>
+        <a href="pages/pets.html" class="nav-link" data-link="pets">
+          <span class="nav-icon">🐾</span>
+          <span>Hồ sơ thú cưng</span>
+        </a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="pages/cart.html" class="header-icon-btn" title="Giỏ hàng của bạn">
+          <span style="font-size: 1.15rem;">🛒</span>
+          <span class="header-badge cart-badge">0</span>
+        </a>
+
+        <!-- Dynamic User Area -->
+        <div id="header-user-area">
+          <a href="pages/login.html" class="btn btn-primary btn-sm">Đăng nhập</a>
+        </div>
+
+        <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Toggle Menu">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Banner Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <span class="hero-tag">🏥 TIÊU CHUẨN Y KHOA QUỐC TẾ</span>
+          <h1 class="hero-title">Bệnh viện & Phòng khám Thú y Đẳng cấp Toàn diện</h1>
+          <p class="hero-description">
+            Đội ngũ Thạc sĩ, Bác sĩ thú y hơn 10 năm kinh nghiệm cùng hệ thống trang thiết bị chẩn đoán hình ảnh, phòng mổ áp lực dương hiện đại bậc nhất. Sẵn sàng phục vụ và cấp cứu 24/7.
+          </p>
+          <div class="hero-actions">
+            <a href="pages/booking.html" class="btn btn-primary btn-lg" style="background-color: #ffffff; color: var(--primary);">
+              📅 Đặt lịch khám ngay
+            </a>
+            <a href="pages/services.html" class="btn btn-outline btn-lg" style="color: #ffffff; border-color: rgba(255,255,255,0.4);">
+              🩺 Xem tất cả dịch vụ
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=700" alt="Bác sĩ thú y khám chó cưng" class="hero-main-img">
+          
+          <div class="hero-floating-card card-bottom-left">
+            <div style="font-size: 2rem;">🚑</div>
+            <div>
+              <div style="font-weight: 800; font-size: 1rem; color: var(--danger);">Cấp cứu khẩn 24/7</div>
+              <div style="font-size: 0.85rem; color: var(--text-muted);">Hotline trực: <strong>1900 6868</strong></div>
+            </div>
+          </div>
+
+          <div class="hero-floating-card card-top-right">
+            <div style="font-size: 2rem;">⭐</div>
+            <div>
+              <div style="font-weight: 800; font-size: 1rem;">4.9 / 5.0 Điểm</div>
+              <div style="font-size: 0.85rem; color: var(--text-muted);">Hơn 12.000 lượt hài lòng</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Stats Ribbon -->
+  <section class="stats-ribbon">
+    <div class="container">
+      <div class="grid grid-4 gap-4">
+        <div class="stat-item">
+          <div class="stat-number">15+</div>
+          <div class="stat-label">Bác sĩ chuyên khoa đầu ngành</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">25.000+</div>
+          <div class="stat-label">Thú cưng được khám & chữa khỏi</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Thuốc & Vaccine chính hãng</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">24/7</div>
+          <div class="stat-label">Trực cấp cứu & Lưu chuồng</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Services Section -->
+  <section style="padding: 80px 0;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">DỊCH VỤ TRỌNG TÂM</span>
+        <h2 class="section-title">Chăm sóc toàn diện cho bé yêu</h2>
+        <p class="section-subtitle">Từ khám bệnh tổng quát, tiêm vaccine đến phẫu thuật ngoại khoa và spa tạo kiểu chuyên nghiệp.</p>
+      </div>
+
+      <div class="grid grid-3 gap-4" id="featured-services-grid">
+        <!-- Rendered dynamically by customer-home.js -->
+      </div>
+
+      <div class="text-center" style="margin-top: 40px;">
+        <a href="pages/services.html" class="btn btn-outline btn-lg">
+          Xem toàn bộ danh mục dịch vụ →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Doctors Section -->
+  <section style="padding: 80px 0; background-color: #f1f5f9;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">ĐỘI NGŨ CHUYÊN GIA</span>
+        <h2 class="section-title">Bác sĩ thú y tận tụy & giàu kinh nghiệm</h2>
+        <p class="section-subtitle">Các bác sĩ đều tốt nghiệp chính quy, được đào tạo chuyên sâu và luôn coi thú cưng như thành viên trong gia đình.</p>
+      </div>
+
+      <div class="grid grid-3 gap-4" id="doctors-grid">
+        <!-- Rendered dynamically by customer-home.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products Section -->
+  <section style="padding: 80px 0;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">CỬA HÀNG PETCARE</span>
+        <h2 class="section-title">Sản phẩm dinh dưỡng & Y tế chính hãng</h2>
+        <p class="section-subtitle">Tuyển chọn các dòng thức ăn hạt, pate dinh dưỡng, thuốc trị ve rận và phụ kiện chăm sóc thú cưng uy tín.</p>
+      </div>
+
+      <div class="grid grid-4 gap-4" id="featured-products-grid">
+        <!-- Rendered dynamically by customer-home.js -->
+      </div>
+
+      <div class="text-center" style="margin-top: 40px;">
+        <a href="pages/products.html" class="btn btn-primary btn-lg">
+          Ghé thăm Cửa hàng sản phẩm →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4-Step Examination Process -->
+  <section style="padding: 80px 0; background-color: #ffffff;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">QUY TRÌNH Y KHOA</span>
+        <h2 class="section-title">Quy trình khám bệnh 4 bước chuẩn hóa</h2>
+        <p class="section-subtitle">Đảm bảo thú cưng luôn cảm thấy thư giãn, không sợ hãi và nhận được kết quả chẩn đoán chính xác nhất.</p>
+      </div>
+
+      <div class="grid grid-4 gap-4">
+        <div class="process-step-card">
+          <div class="process-step-num">1</div>
+          <h3 class="process-step-title">Đặt hẹn trực tuyến</h3>
+          <p class="process-step-desc">Chủ nuôi chủ động chọn ngày, giờ và bác sĩ mong muốn, không mất công chờ đợi xếp hàng.</p>
+        </div>
+
+        <div class="process-step-card">
+          <div class="process-step-num">2</div>
+          <h3 class="process-step-title">Khám sàng lọc kĩ lưỡng</h3>
+          <p class="process-step-desc">Đo cân nặng, thân nhiệt, nghe tim phổi và kiểm tra toàn diện các cơ quan của thú cưng.</p>
+        </div>
+
+        <div class="process-step-card">
+          <div class="process-step-num">3</div>
+          <h3 class="process-step-title">Chẩn đoán & Phác đồ</h3>
+          <p class="process-step-desc">Bác sĩ tư vấn minh bạch phác đồ điều trị, giải thích rõ công dụng từng loại thuốc hoặc xét nghiệm.</p>
+        </div>
+
+        <div class="process-step-card">
+          <div class="process-step-num">4</div>
+          <h3 class="process-step-title">Theo dõi điện tử</h3>
+          <p class="process-step-desc">Toàn bộ hồ sơ bệnh án được lưu vào hệ thống, tự động gửi tin nhắn nhắc lịch tái khám và tiêm ngừa.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Customer Testimonials -->
+  <section style="padding: 80px 0; background-color: #f8fafc;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">ĐÁNH GIÁ TỪ CHỦ NUÔI</span>
+        <h2 class="section-title">Khách hàng nói gì về PetCare?</h2>
+        <p class="section-subtitle">Sự hài lòng và sức khỏe của các bé là niềm hạnh phúc lớn nhất của chúng tôi.</p>
+      </div>
+
+      <div class="grid grid-3 gap-4">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Bé Miu nhà mình bị sốt bỏ ăn 2 ngày, đưa đến PetCare được Bác sĩ An khám và xét nghiệm máu rất nhanh. Bác sĩ giải thích nhẹ nhàng, kê thuốc uống 2 hôm là bé lại chạy nhảy bình thường."</p>
+          <div class="testimonial-user">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100" alt="Khách hàng" class="testimonial-user-avatar">
+            <div>
+              <div style="font-weight: 700;">Chị Hoàng Lan</div>
+              <div style="font-size: 0.85rem; color: var(--text-muted);">Nuôi mèo Anh lông ngắn</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Dịch vụ đặt lịch online quá tiện lợi! Mình đặt hẹn lúc 10h30 đến là được vào phòng khám ngay. Phòng khám cực kỳ sạch sẽ, không có mùi hôi như các chỗ khác, bác sĩ rất yêu động vật."</p>
+          <div class="testimonial-user">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" alt="Khách hàng" class="testimonial-user-avatar">
+            <div>
+              <div style="font-weight: 700;">Anh Trần Minh Tuấn</div>
+              <div style="font-size: 0.85rem; color: var(--text-muted);">Nuôi cún Corgi</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Dịch vụ Spa & Grooming ở đây đỉnh thật sự. Bé cún Poodle nhà mình cắt tỉa xong như thú bông vậy. Nhân viên tắm gội rất cẩn thận, bé không bị hoảng sợ chút nào. Chắc chắn sẽ quay lại định kỳ!"</p>
+          <div class="testimonial-user">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" alt="Khách hàng" class="testimonial-user-avatar">
+            <div>
+              <div style="font-weight: 700;">Bạn Đỗ Thùy Linh</div>
+              <div style="font-size: 0.85rem; color: var(--text-muted);">Nuôi Poodle 3 tuổi</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Emergency Callout Banner -->
+  <div class="container">
+    <div class="cta-banner-section">
+      <h2 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 14px;">Thú cưng gặp tình huống khẩn cấp?</h2>
+      <p style="font-size: 1.1rem; opacity: 0.95; max-width: 600px; margin: 0 auto 28px;">
+        Đội ngũ cấp cứu và xe chuyên dụng của PetCare Clinic luôn thường trực 24/7 kể cả ngày lễ tết để kịp thời hỗ trợ bé yêu của bạn.
+      </p>
+      <div class="d-flex justify-center gap-3 flex-wrap">
+        <a href="tel:19006868" class="btn btn-danger btn-lg" style="font-size: 1.15rem; padding: 14px 32px; box-shadow: 0 8px 20px rgba(0,0,0,0.2);">
+          📞 Gọi cấp cứu ngay: 1900 6868
+        </a>
+        <a href="pages/booking.html" class="btn btn-outline btn-lg" style="color: #fff; border-color: #fff;">
+          📅 Đặt lịch khám thường
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-col">
+          <div class="brand-logo" style="color: #fff; margin-bottom: 16px;">
+            <span class="brand-icon">🐾</span>
+            <span>PetCare<span style="color: var(--primary);">Clinic</span></span>
+          </div>
+          <p>Hệ thống phòng khám và bệnh viện thú y uy tín hàng đầu. Cam kết mang đến sự chăm sóc ân cần, trang thiết bị y khoa hiện đại và phác đồ điều trị an toàn cho thú cưng của bạn.</p>
+          <div class="d-flex gap-2" style="margin-top: 16px;">
+            <span class="badge badge-success">Cấp cứu 24/7</span>
+            <span class="badge badge-primary">Tiêu chuẩn Quốc tế</span>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Liên kết nhanh</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Trang chủ</a></li>
+            <li><a href="pages/services.html">Dịch vụ thú y</a></li>
+            <li><a href="pages/products.html">Sản phẩm chăm sóc</a></li>
+            <li><a href="pages/booking.html">Đặt lịch khám bệnh</a></li>
+            <li><a href="pages/pets.html">Hồ sơ thú cưng</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Dịch vụ y tế</h4>
+          <ul class="footer-links">
+            <li><a href="pages/service-detail.html?id=srv-1">Khám tổng quát</a></li>
+            <li><a href="pages/service-detail.html?id=srv-2">Tiêm phòng Vaccine</a></li>
+            <li><a href="pages/service-detail.html?id=srv-3">Xét nghiệm máu & Siêu âm</a></li>
+            <li><a href="pages/service-detail.html?id=srv-4">Spa Grooming làm đẹp</a></li>
+            <li><a href="pages/service-detail.html?id=srv-5">Phẫu thuật & Triệt sản</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Liên hệ hỗ trợ</h4>
+          <ul class="footer-contact">
+            <li><span>📍</span><span>Số 18 Hoàng Diệu, Ba Đình, Hà Nội</span></li>
+            <li><span>📞</span><span>Hotline 24/7: <strong style="color: #fff;">1900 6868</strong></span></li>
+            <li><span>✉️</span><span>contact@petcareclinic.vn</span></li>
+            <li><span>⏰</span><span>Mở cửa: 08:00 - 21:00 (Cấp cứu trực 24/7)</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 PetCare Clinic. Bản quyền thuộc về Trung tâm Thú Y PetCare. Giữ toàn quyền.</div>
+        <div class="d-flex gap-4">
+          <a href="#">Chính sách bảo mật</a>
+          <a href="#">Điều khoản dịch vụ</a>
+          <a href="#">Quy trình cấp cứu</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/modal.js"></script>
+  <script src="assets/js/customer-home.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initHomePage();
+    });
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lịch Sử Đơn Hàng - PetCare Clinic</title>
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/modal.css">
+  <link rel="stylesheet" href="../assets/css/table.css">
+  <link rel="stylesheet" href="../assets/css/cart.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand-logo">
+        <span class="brand-icon">🐾</span>
+        <div>
+          <span>PetCare</span><span style="color: var(--primary);">Clinic</span>
+          <span style="display: block; font-size: 0.65rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.5px;">BÁC SĨ THÚ Y 24/7</span>
+        </div>
+      </a>
+
+      <!-- Sleek Horizontal Navigation Bar -->
+      <nav class="main-nav" id="main-nav">
+        <a href="../index.html" class="nav-link" data-link="home">
+          <span class="nav-icon">🏠</span>
+          <span>Trang chủ</span>
+        </a>
+        <a href="services.html" class="nav-link" data-link="services">
+          <span class="nav-icon">🩺</span>
+          <span>Dịch vụ y tế</span>
+        </a>
+        <a href="products.html" class="nav-link" data-link="products">
+          <span class="nav-icon">🛍️</span>
+          <span>Cửa hàng Pet</span>
+        </a>
+        <a href="booking.html" class="nav-link" data-link="booking">
+          <span class="nav-icon">📅</span>
+          <span>Đặt lịch khám</span>
+        </a>
+        <a href="pets.html" class="nav-link" data-link="pets">
+          <span class="nav-icon">🐾</span>
+          <span>Hồ sơ thú cưng</span>
+        </a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="cart.html" class="header-icon-btn" title="Giỏ hàng của bạn">
+          <span style="font-size: 1.15rem;">🛒</span>
+          <span class="header-badge cart-badge">0</span>
+        </a>
+
+        <div id="header-user-area"></div>
+
+        <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Toggle Menu">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main style="padding: 30px 0 80px;">
+    <div class="container">
+      <!-- Back Button -->
+      <button type="button" class="btn-back" onclick="goBack('products.html')" title="Quay lại Cửa hàng">
+        <span class="btn-back-icon">←</span>
+        <span>Quay lại</span>
+      </button>
+
+      <div class="d-flex items-center justify-between flex-wrap gap-3" style="margin-bottom: 28px;">
+        <div>
+          <h1 style="font-size: 2rem; font-weight: 800; color: var(--dark); margin-bottom: 4px;">Lịch Sử Đơn Hàng</h1>
+          <p style="color: var(--text-muted);">Theo dõi tình trạng xử lý và tiến trình vận chuyển các đơn hàng của bạn.</p>
+        </div>
+        <a href="products.html" class="btn btn-primary">🛍️ Mua thêm sản phẩm</a>
+      </div>
+
+      <!-- Toolbar: Search & Filter Tabs -->
+      <div class="card" style="padding: 18px 24px; margin-bottom: 24px;">
+        <div class="table-toolbar" style="margin-bottom: 0;">
+          <div class="d-flex items-center gap-2 flex-wrap">
+            <button class="btn btn-primary btn-sm order-status-filter-btn active" data-status="all">Tất cả</button>
+            <button class="btn btn-outline btn-sm order-status-filter-btn" data-status="pending">Chờ xác nhận</button>
+            <button class="btn btn-outline btn-sm order-status-filter-btn" data-status="processing">Đang xử lý</button>
+            <button class="btn btn-outline btn-sm order-status-filter-btn" data-status="shipping">Đang giao</button>
+            <button class="btn btn-outline btn-sm order-status-filter-btn" data-status="completed">Hoàn thành</button>
+          </div>
+
+          <div class="table-search-box">
+            <input type="text" id="order-search-input" class="form-control" placeholder="Tìm theo mã đơn hoặc người nhận...">
+            <span class="search-icon">🔍</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Orders Data Table -->
+      <div class="table-responsive">
+        <table class="custom-table" id="orders-table">
+          <thead>
+            <tr>
+              <th class="sortable" onclick="window.ordersTableHelper.setSort('id')">Mã đơn hàng <span class="sort-icon">⇅</span></th>
+              <th class="sortable" onclick="window.ordersTableHelper.setSort('date')">Ngày đặt <span class="sort-icon">⇅</span></th>
+              <th>Sản phẩm đặt</th>
+              <th class="sortable" onclick="window.ordersTableHelper.setSort('total')">Tổng tiền <span class="sort-icon">⇅</span></th>
+              <th>Trạng thái đơn</th>
+              <th>Thanh toán</th>
+              <th class="text-right">Thao tác</th>
+            </tr>
+          </thead>
+          <tbody id="orders-tbody">
+            <!-- Rendered dynamically by cart.js -->
+          </tbody>
+        </table>
+
+        <div id="orders-pagination" class="table-pagination"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal: View Order Detail -->
+  <div class="modal-backdrop" id="order-detail-modal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <span>📦</span>
+          <span>Chi tiết đơn hàng: <span id="modal-order-id" style="color: var(--primary);">---</span></span>
+        </h3>
+        <button class="modal-close" onclick="ModalManager.close('order-detail-modal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="grid grid-2 gap-3" style="margin-bottom: 20px; font-size: 0.92rem; background: #f8fafc; padding: 16px; border-radius: 8px;">
+          <div>
+            <div style="color: var(--text-muted); margin-bottom: 4px;">Người nhận & SĐT:</div>
+            <strong id="modal-order-receiver">---</strong>
+          </div>
+          <div>
+            <div style="color: var(--text-muted); margin-bottom: 4px;">Thời gian đặt hàng:</div>
+            <strong id="modal-order-date">---</strong>
+          </div>
+          <div style="grid-column: 1 / -1;">
+            <div style="color: var(--text-muted); margin-bottom: 4px;">Địa chỉ giao hàng:</div>
+            <strong id="modal-order-address">---</strong>
+          </div>
+          <div>
+            <div style="color: var(--text-muted); margin-bottom: 4px;">Tình trạng thanh toán:</div>
+            <strong id="modal-order-payment">---</strong>
+          </div>
+          <div>
+            <div style="color: var(--text-muted); margin-bottom: 4px;">Trạng thái đơn:</div>
+            <strong id="modal-order-status" style="text-transform: capitalize;">---</strong>
+          </div>
+        </div>
+
+        <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 12px;">Danh sách sản phẩm trong đơn</h4>
+        <div id="modal-order-items" style="margin-bottom: 16px;"></div>
+
+        <div style="border-top: 1px solid var(--border); padding-top: 12px;">
+          <div class="d-flex justify-between" style="margin-bottom: 6px;">
+            <span style="color: var(--text-muted);">Tạm tính:</span>
+            <span id="modal-order-subtotal">---</span>
+          </div>
+          <div class="d-flex justify-between" style="margin-bottom: 6px;">
+            <span style="color: var(--text-muted);">Phí vận chuyển:</span>
+            <span id="modal-order-shipping">---</span>
+          </div>
+          <div class="d-flex justify-between" style="font-size: 1.15rem; font-weight: 800;">
+            <span>Tổng cộng:</span>
+            <span id="modal-order-total" style="color: var(--primary);">---</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="ModalManager.close('order-detail-modal')">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>&copy; 2026 PetCare Clinic. Giữ toàn quyền.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/modal.js"></script>
+  <script src="../assets/js/table.js"></script>
+  <script src="../assets/js/cart.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initOrderHistoryPage();
+    });
+  </script>
+</body>
+</html>
+

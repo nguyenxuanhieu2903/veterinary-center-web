@@ -1,0 +1,27 @@
+<!-- ==========================================================================
+     PETCARE CLINIC - SHARED MODAL TEMPLATE
+     ========================================================================== -->
+
+<!-- Universal Alert / Confirm Modal Dialog -->
+<div class="modal-backdrop" id="universal-modal">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <h3 class="modal-title" id="universal-modal-title">
+        <span>🐾</span>
+        <span id="modal-heading-text">Tiêu đề thông báo</span>
+      </h3>
+      <button class="modal-close" onclick="ModalManager.close('universal-modal')">&times;</button>
+    </div>
+
+    <div class="modal-body" id="universal-modal-body">
+      <!-- Dynamic modal content goes here -->
+      <p>Nội dung chi tiết thông báo hoặc biểu mẫu thao tác.</p>
+    </div>
+
+    <div class="modal-footer" id="universal-modal-footer">
+      <button class="btn btn-outline" onclick="ModalManager.close('universal-modal')">Đóng</button>
+      <button class="btn btn-primary" id="universal-modal-submit">Xác nhận</button>
+    </div>
+  </div>
+</div>
+

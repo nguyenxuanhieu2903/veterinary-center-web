@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng ký tài khoản - PetCare Clinic</title>
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/modal.css">
+  <link rel="stylesheet" href="../assets/css/auth.css">
+</head>
+<body>
+
+  <div class="auth-wrapper">
+    <div class="auth-container">
+      <!-- Left Hero Banner -->
+      <div class="auth-banner">
+        <div>
+          <a href="../index.html" class="brand-logo" style="color: #ffffff; margin-bottom: 24px; display: inline-flex;">
+            <span class="brand-icon" style="background: rgba(255,255,255,0.25); box-shadow: none;">🐾</span>
+            <span>PetCare<span style="color: #a7f3d0;">Clinic</span></span>
+          </a>
+          <h2 class="auth-banner-title">Gia nhập cộng đồng yêu thú cưng</h2>
+          <p class="auth-banner-text">Tạo tài khoản PetCare để lưu trữ hồ sơ tiêm phòng, quản lý lịch khám và nhận các ưu đãi hấp dẫn từ bệnh viện.</p>
+          
+          <div class="auth-features">
+            <div class="auth-feature-item">
+              <span class="auth-feature-icon">✓</span>
+              <span>Tạo và quản lý không giới hạn hồ sơ thú cưng</span>
+            </div>
+            <div class="auth-feature-item">
+              <span class="auth-feature-icon">✓</span>
+              <span>Nhận thông báo nhắc lịch tiêm phòng tự động</span>
+            </div>
+            <div class="auth-feature-item">
+              <span class="auth-feature-icon">✓</span>
+              <span>Tích lũy điểm thưởng và giảm 10% khi mua sắm</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="font-size: 0.85rem; opacity: 0.8;">
+          Cấp cứu 24/7: <strong>1900 6868</strong> • Luôn đồng hành cùng bé yêu
+        </div>
+      </div>
+
+      <!-- Right Form Section -->
+      <div class="auth-form-section">
+        <!-- Universal Back Button -->
+        <button type="button" class="btn-back" onclick="goBack('login.html')" title="Quay lại">
+          <span class="btn-back-icon">←</span>
+          <span>Quay lại</span>
+        </button>
+
+        <div class="auth-header">
+          <h1 class="auth-title">Đăng ký tài khoản</h1>
+          <p class="auth-subtitle">Trở thành thành viên PetCare Clinic ngay hôm nay</p>
+        </div>
+
+        <!-- Feedback Alert -->
+        <div class="auth-alert" id="auth-alert"></div>
+
+        <form id="register-form" onsubmit="handleRegisterSubmit(event)">
+          <!-- Full Name -->
+          <div class="form-group">
+            <label for="reg-name" class="form-label required">Họ và tên</label>
+            <input type="text" id="reg-name" class="form-control" placeholder="Nguyễn Văn A" autocomplete="name">
+            <span class="form-feedback error" id="reg-name-error"></span>
+          </div>
+
+          <!-- Email & Phone Grid -->
+          <div class="grid grid-2 gap-3">
+            <div class="form-group">
+              <label for="reg-email" class="form-label required">Địa chỉ Email</label>
+              <input type="email" id="reg-email" class="form-control" placeholder="vidu@gmail.com" autocomplete="email">
+              <span class="form-feedback error" id="reg-email-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="reg-phone" class="form-label required">Số điện thoại</label>
+              <input type="tel" id="reg-phone" class="form-control" placeholder="0912 345 678" autocomplete="tel">
+              <span class="form-feedback error" id="reg-phone-error"></span>
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label for="reg-password" class="form-label required">Mật khẩu</label>
+            <div class="password-input-group">
+              <input type="password" id="reg-password" class="form-control" placeholder="Tối thiểu 6 ký tự" autocomplete="new-password">
+              <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility('reg-password', this)" title="Hiện mật khẩu">👁️‍🗨️</button>
+            </div>
+            <span class="form-feedback error" id="reg-password-error"></span>
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="form-group">
+            <label for="reg-confirm-password" class="form-label required">Xác nhận mật khẩu</label>
+            <div class="password-input-group">
+              <input type="password" id="reg-confirm-password" class="form-control" placeholder="Nhập lại mật khẩu" autocomplete="new-password">
+              <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility('reg-confirm-password', this)" title="Hiện mật khẩu">👁️‍🗨️</button>
+            </div>
+            <span class="form-feedback error" id="reg-confirm-password-error"></span>
+          </div>
+
+          <!-- Terms Checkbox -->
+          <div class="form-group">
+            <label style="display: flex; align-items: flex-start; gap: 8px; cursor: pointer; font-size: 0.88rem;">
+              <input type="checkbox" id="reg-terms" checked style="accent-color: var(--primary); margin-top: 3px; width: 16px; height: 16px;">
+              <span>Tôi đồng ý với <a href="#" style="color: var(--primary); font-weight: 600;">Điều khoản dịch vụ</a> và <a href="#" style="color: var(--primary); font-weight: 600;">Chính sách bảo mật</a> của PetCare Clinic.</span>
+            </label>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" id="btn-register-submit" class="btn btn-primary btn-block btn-lg">
+            Tạo tài khoản mới
+          </button>
+        </form>
+
+        <!-- Link to Login -->
+        <div class="text-center" style="margin-top: 20px; font-size: 0.95rem;">
+          Đã có tài khoản? <a href="login.html" style="color: var(--primary); font-weight: 700;">Đăng nhập ngay</a>
+        </div>
+
+        <div class="text-center" style="margin-top: 16px;">
+          <a href="../index.html" style="font-size: 0.88rem; color: var(--text-muted);">← Quay lại Trang chủ</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/modal.js"></script>
+  <script src="../assets/js/auth.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giỏ Hàng Của Bạn - PetCare Clinic</title>
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/modal.css">
+  <link rel="stylesheet" href="../assets/css/cart.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand-logo">
+        <span class="brand-icon">🐾</span>
+        <div>
+          <span>PetCare</span><span style="color: var(--primary);">Clinic</span>
+          <span style="display: block; font-size: 0.65rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.5px;">BÁC SĨ THÚ Y 24/7</span>
+        </div>
+      </a>
+
+      <!-- Sleek Horizontal Navigation Bar -->
+      <nav class="main-nav" id="main-nav">
+        <a href="../index.html" class="nav-link" data-link="home">
+          <span class="nav-icon">🏠</span>
+          <span>Trang chủ</span>
+        </a>
+        <a href="services.html" class="nav-link" data-link="services">
+          <span class="nav-icon">🩺</span>
+          <span>Dịch vụ y tế</span>
+        </a>
+        <a href="products.html" class="nav-link" data-link="products">
+          <span class="nav-icon">🛍️</span>
+          <span>Cửa hàng Pet</span>
+        </a>
+        <a href="booking.html" class="nav-link" data-link="booking">
+          <span class="nav-icon">📅</span>
+          <span>Đặt lịch khám</span>
+        </a>
+        <a href="pets.html" class="nav-link" data-link="pets">
+          <span class="nav-icon">🐾</span>
+          <span>Hồ sơ thú cưng</span>
+        </a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="cart.html" class="header-icon-btn" title="Giỏ hàng của bạn">
+          <span style="font-size: 1.15rem;">🛒</span>
+          <span class="header-badge cart-badge">0</span>
+        </a>
+
+        <div id="header-user-area"></div>
+
+        <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Toggle Menu">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main style="padding: 30px 0 80px;">
+    <div class="container">
+      <!-- Back Button -->
+      <button type="button" class="btn-back" onclick="goBack('products.html')" title="Quay lại Cửa hàng">
+        <span class="btn-back-icon">←</span>
+        <span>Quay lại</span>
+      </button>
+
+      <div class="d-flex items-center justify-between flex-wrap gap-3" style="margin-bottom: 28px;">
+        <div>
+          <h1 style="font-size: 2rem; font-weight: 800; color: var(--dark); margin-bottom: 4px;">Giỏ Hàng Mua Sắm</h1>
+          <p style="color: var(--text-muted);">Kiểm tra lại danh sách các món đồ và số lượng trước khi tiến hành thanh toán.</p>
+        </div>
+        <button class="btn btn-outline btn-sm" onclick="clearAllCart()" style="color: var(--danger); border-color: var(--danger-light);">
+          🗑️ Xóa toàn bộ giỏ
+        </button>
+      </div>
+
+      <div class="cart-layout">
+        <!-- Left: Cart Items -->
+        <div class="card" style="padding: 24px;">
+          <div id="cart-items-container">
+            <!-- Rendered dynamically by cart.js -->
+          </div>
+
+          <div class="d-flex justify-between items-center" style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border);">
+            <a href="products.html" class="btn btn-outline">
+              ← Tiếp tục mua sắm
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Summary & Voucher -->
+        <div class="cart-summary-box" id="cart-summary-section">
+          <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--dark); margin-bottom: 20px;">Tóm Tắt Đơn Hàng</h3>
+
+          <!-- Voucher Box -->
+          <div style="margin-bottom: 20px;">
+            <label style="font-size: 0.88rem; font-weight: 600; display: block; margin-bottom: 6px;">Mã giảm giá / Voucher</label>
+            <div class="d-flex gap-2">
+              <input type="text" id="voucher-code-input" class="form-control" placeholder="VD: PETCARE10" style="text-transform: uppercase;">
+              <button type="button" class="btn btn-outline" onclick="applyVoucher()">Áp dụng</button>
+            </div>
+            <span style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; display: block;">* Nhập <strong>PETCARE10</strong> để giảm ngay 10%</span>
+          </div>
+
+          <!-- Summary list -->
+          <div class="summary-row">
+            <span style="color: var(--text-muted);">Tạm tính tiền hàng:</span>
+            <strong id="cart-subtotal">0 ₫</strong>
+          </div>
+          <div class="summary-row">
+            <span style="color: var(--text-muted);">Phí vận chuyển:</span>
+            <strong id="cart-shipping">30.000 ₫</strong>
+          </div>
+          <div class="summary-row" id="cart-discount-row" style="display: none; color: var(--success);">
+            <span>Giảm giá Voucher:</span>
+            <strong id="cart-discount-amount">- 0 ₫</strong>
+          </div>
+          <div class="summary-row total-row">
+            <span>Tổng thanh toán:</span>
+            <span id="cart-total" style="color: var(--primary);">0 ₫</span>
+          </div>
+
+          <div style="margin-top: 24px;">
+            <a href="checkout.html" class="btn btn-primary btn-block btn-lg">
+              Tiến hành thanh toán →
+            </a>
+          </div>
+
+          <div style="margin-top: 16px; text-align: center; font-size: 0.82rem; color: var(--text-muted);">
+            Miễn phí vận chuyển cho đơn hàng từ <strong>500.000 ₫</strong> trở lên
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>&copy; 2026 PetCare Clinic. Giữ toàn quyền.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/modal.js"></script>
+  <script src="../assets/js/cart.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initCartPage();
+    });
+  </script>
+</body>
+</html>
+

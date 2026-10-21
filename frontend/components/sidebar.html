@@ -1,0 +1,117 @@
+<!-- ==========================================================================
+     PETCARE CLINIC - SHARED SIDEBAR COMPONENT (ADMIN & DOCTOR)
+     ========================================================================== -->
+<aside class="dashboard-sidebar" id="dashboard-sidebar">
+  <!-- Brand / Toggle Header -->
+  <div class="sidebar-header">
+    <a href="../index.html" class="sidebar-brand">
+      <span class="brand-icon">🐾</span>
+      <span class="sidebar-brand-text">PetCare<span style="color: var(--primary);">System</span></span>
+    </a>
+    <button class="sidebar-toggle-btn" id="btn-toggle-sidebar" onclick="toggleSidebar()" title="Thu gọn / Mở rộng Sidebar">
+      ◀
+    </button>
+  </div>
+
+  <!-- User Role Card -->
+  <div class="sidebar-user-card">
+    <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=120" alt="Avatar" class="sidebar-user-avatar" id="sidebar-user-avatar">
+    <div class="sidebar-user-info">
+      <h4 id="sidebar-user-name">Đang tải...</h4>
+      <span class="badge badge-primary" id="sidebar-user-role">Bác sĩ Thú y</span>
+    </div>
+  </div>
+
+  <!-- Navigation Menu Groups -->
+  <div class="sidebar-menu-wrapper">
+    <!-- Admin Menu Section -->
+    <div id="admin-menu-section" class="sidebar-group">
+      <div class="sidebar-heading">QUẢN TRỊ VIÊN</div>
+      <ul class="sidebar-menu">
+        <li>
+          <a href="../pages/admin-dashboard.html" class="sidebar-link" data-link="admin-dashboard">
+            <span class="sidebar-icon">📊</span>
+            <span class="sidebar-text">Tổng quan KPI</span>
+          </a>
+        </li>
+        <li>
+          <a href="../pages/admin-dashboard.html#section-appointments" class="sidebar-link" data-link="admin-appointments">
+            <span class="sidebar-icon">📅</span>
+            <span class="sidebar-text">Quản lý Lịch khám</span>
+            <span class="badge badge-warning sidebar-badge" id="sidebar-pending-badge">1</span>
+          </a>
+        </li>
+        <li>
+          <a href="../pages/admin-dashboard.html#section-orders" class="sidebar-link" data-link="admin-orders">
+            <span class="sidebar-icon">🛒</span>
+            <span class="sidebar-text">Quản lý Đơn hàng</span>
+          </a>
+        </li>
+        <li>
+          <a href="../pages/pets.html" class="sidebar-link" data-link="admin-pets">
+            <span class="sidebar-icon">🐶</span>
+            <span class="sidebar-text">Quản lý Thú cưng</span>
+          </a>
+        </li>
+        <li>
+          <a href="../pages/services.html" class="sidebar-link" data-link="admin-services">
+            <span class="sidebar-icon">🩺</span>
+            <span class="sidebar-text">Quản lý Dịch vụ</span>
+          </a>
+        </li>
+        <li>
+          <a href="../pages/products.html" class="sidebar-link" data-link="admin-products">
+            <span class="sidebar-icon">💊</span>
+            <span class="sidebar-text">Quản lý Sản phẩm</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Doctor Menu Section -->
+    <div id="doctor-menu-section" class="sidebar-group">
+      <div class="sidebar-heading">BÀN LÀM VIỆC BÁC SĨ</div>
+      <ul class="sidebar-menu">
+        <li>
+          <a href="../pages/doctor-dashboard.html" class="sidebar-link" data-link="doctor-dashboard">
+            <span class="sidebar-icon">🩺</span>
+            <span class="sidebar-text">Lịch khám hôm nay</span>
+            <span class="badge badge-primary sidebar-badge" id="doctor-today-badge">2</span>
+          </a>
+        </li>
+        <li>
+          <a href="../pages/medical-record.html" class="sidebar-link" data-link="doctor-records">
+            <span class="sidebar-icon">📋</span>
+            <span class="sidebar-text">Hồ sơ Bệnh án</span>
+          </a>
+        </li>
+        <li>
+          <a href="../pages/pets.html" class="sidebar-link" data-link="doctor-pets">
+            <span class="sidebar-icon">🐾</span>
+            <span class="sidebar-text">Tra cứu Thú cưng</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Shared Actions Section -->
+    <div class="sidebar-group">
+      <div class="sidebar-heading">HỆ THỐNG</div>
+      <ul class="sidebar-menu">
+        <li>
+          <a href="../index.html" class="sidebar-link">
+            <span class="sidebar-icon">🌐</span>
+            <span class="sidebar-text">Xem Portal Khách hàng</span>
+          </a>
+        </li>
+        <li>
+          <button onclick="logout()" class="sidebar-link" style="width: 100%; color: var(--danger); text-align: left; background: none; border: none; cursor: pointer;">
+            <span class="sidebar-icon">🚪</span>
+            <span class="sidebar-text">Đăng xuất</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</aside>
+

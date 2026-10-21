@@ -1,0 +1,324 @@
+/* ==========================================================================
+   DASHBOARD STYLES (ADMIN & DOCTOR)
+   ========================================================================== */
+
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f8fafc;
+}
+
+/* Sidebar Styles */
+.dashboard-sidebar {
+  width: var(--sidebar-width);
+  background-color: #0f172a;
+  color: #94a3b8;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.dashboard-sidebar.collapsed {
+  width: var(--sidebar-collapsed-width);
+}
+
+.sidebar-header {
+  height: var(--header-height);
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1.2rem;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.dashboard-sidebar.collapsed .sidebar-brand-text {
+  display: none;
+}
+
+.sidebar-toggle-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: #94a3b8;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.sidebar-toggle-btn:hover {
+  background-color: var(--primary);
+  color: #ffffff;
+}
+
+.dashboard-sidebar.collapsed .sidebar-toggle-btn {
+  transform: rotate(180deg);
+}
+
+/* User profile card inside sidebar */
+.sidebar-user-card {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.sidebar-user-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--primary);
+  flex-shrink: 0;
+}
+
+.sidebar-user-info {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.sidebar-user-info h4 {
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.dashboard-sidebar.collapsed .sidebar-user-info {
+  display: none;
+}
+
+/* Sidebar Menu */
+.sidebar-menu-wrapper {
+  padding: 16px 12px;
+  flex: 1;
+}
+
+.sidebar-group {
+  margin-bottom: 24px;
+}
+
+.sidebar-heading {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #64748b;
+  letter-spacing: 0.5px;
+  padding: 0 12px 8px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.dashboard-sidebar.collapsed .sidebar-heading {
+  display: none;
+}
+
+.sidebar-menu li {
+  margin-bottom: 4px;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: var(--radius-md);
+  color: #94a3b8;
+  font-weight: 600;
+  font-size: 0.92rem;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.sidebar-link:hover, .sidebar-link.active {
+  background-color: rgba(13, 148, 136, 0.15);
+  color: #2dd4bf;
+}
+
+.sidebar-link.active {
+  background-color: var(--primary);
+  color: #ffffff;
+}
+
+.sidebar-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.sidebar-badge {
+  margin-left: auto;
+}
+
+.dashboard-sidebar.collapsed .sidebar-text,
+.dashboard-sidebar.collapsed .sidebar-badge {
+  display: none;
+}
+
+/* Dashboard Main Content Area */
+.dashboard-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow-y: auto;
+}
+
+.dashboard-topbar {
+  height: var(--header-height);
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 900;
+}
+
+.dashboard-content {
+  padding: 32px;
+  flex: 1;
+}
+
+/* KPI Stat Cards Grid */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.kpi-card {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: var(--transition);
+}
+
+.kpi-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.kpi-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  flex-shrink: 0;
+}
+
+.kpi-icon-wrap.bg-teal { background-color: var(--primary-light); color: var(--primary); }
+.kpi-icon-wrap.bg-blue { background-color: #e0f2fe; color: #0284c7; }
+.kpi-icon-wrap.bg-amber { background-color: #fef3c7; color: #d97706; }
+.kpi-icon-wrap.bg-emerald { background-color: #d1fae5; color: #059669; }
+
+.kpi-info h4 {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.kpi-value {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--dark);
+  line-height: 1.1;
+}
+
+/* Simple CSS Bar Chart Simulation */
+.metric-chart-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  height: 180px;
+  padding-top: 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 12px;
+}
+
+.metric-bar-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.metric-bar {
+  width: 100%;
+  max-width: 38px;
+  background: linear-gradient(180deg, var(--primary), #14b8a6);
+  border-radius: 6px 6px 0 0;
+  transition: height 0.6s ease;
+  position: relative;
+}
+
+.metric-bar:hover {
+  opacity: 0.9;
+}
+
+.metric-bar-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+
+@media (max-width: 1024px) {
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-sidebar {
+    position: fixed;
+    left: -260px;
+  }
+  .dashboard-sidebar.mobile-open {
+    left: 0;
+  }
+  .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+  .dashboard-content {
+    padding: 20px 16px;
+  }
+}
+

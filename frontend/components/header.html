@@ -1,0 +1,58 @@
+<!-- ==========================================================================
+     PETCARE CLINIC - SHARED HEADER COMPONENT (COMPACT HORIZONTAL NAV)
+     ========================================================================== -->
+<header class="site-header">
+  <div class="container header-inner">
+    <!-- Brand Logo -->
+    <a href="../index.html" class="brand-logo" id="header-brand-logo">
+      <span class="brand-icon">🐾</span>
+      <div>
+        <span>PetCare</span><span style="color: var(--primary);">Clinic</span>
+        <span style="display: block; font-size: 0.62rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.5px;">BÁC SĨ THÚ Y 24/7</span>
+      </div>
+    </a>
+
+    <!-- Sleek Horizontal Navigation Bar -->
+    <nav class="main-nav" id="main-nav">
+      <a href="../index.html" class="nav-link" data-link="home">
+        <span class="nav-icon">🏠</span>
+        <span>Trang chủ</span>
+      </a>
+      <a href="../pages/services.html" class="nav-link" data-link="services">
+        <span class="nav-icon">🩺</span>
+        <span>Dịch vụ y tế</span>
+      </a>
+      <a href="../pages/products.html" class="nav-link" data-link="products">
+        <span class="nav-icon">🛍️</span>
+        <span>Cửa hàng Pet</span>
+      </a>
+      <a href="../pages/booking.html" class="nav-link" data-link="booking">
+        <span class="nav-icon">📅</span>
+        <span>Đặt lịch khám</span>
+      </a>
+      <a href="../pages/pets.html" class="nav-link" data-link="pets">
+        <span class="nav-icon">🐾</span>
+        <span>Hồ sơ thú cưng</span>
+      </a>
+    </nav>
+
+    <!-- Header Actions (Quick Cart, User Profile & Mobile Toggle) -->
+    <div class="header-actions">
+      <!-- Quick Cart Button -->
+      <a href="../pages/cart.html" class="header-icon-btn" title="Giỏ hàng của bạn">
+        <span style="font-size: 1.15rem;">🛒</span>
+        <span class="header-badge cart-badge">0</span>
+      </a>
+
+      <!-- User Area / Auth Menu -->
+      <div id="header-user-area">
+        <a href="../pages/login.html" class="btn btn-primary btn-sm">Đăng nhập</a>
+      </div>
+
+      <!-- Mobile Hamburger Menu Button -->
+      <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Toggle Menu" title="Menu">
+        ☰
+      </button>
+    </div>
+  </div>
+</header>

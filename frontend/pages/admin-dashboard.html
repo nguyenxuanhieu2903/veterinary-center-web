@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bảng Quản Trị Hệ Thống - PetCare Admin</title>
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/modal.css">
+  <link rel="stylesheet" href="../assets/css/table.css">
+  <link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    <!-- Collapsible Sidebar Component -->
+    <aside class="dashboard-sidebar" id="dashboard-sidebar">
+      <div class="sidebar-header">
+        <a href="../index.html" class="sidebar-brand">
+          <span class="brand-icon">🐾</span>
+          <span class="sidebar-brand-text">PetCare<span style="color: var(--primary);">Admin</span></span>
+        </a>
+        <button class="sidebar-toggle-btn" id="btn-toggle-sidebar" onclick="toggleSidebar()" title="Thu gọn / Mở rộng">
+          ◀
+        </button>
+      </div>
+
+      <div class="sidebar-user-card">
+        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120" alt="Avatar" class="sidebar-user-avatar" id="sidebar-user-avatar">
+        <div class="sidebar-user-info">
+          <h4 id="sidebar-user-name">Quản trị viên</h4>
+          <span class="badge badge-danger" id="sidebar-user-role">Hệ thống</span>
+        </div>
+      </div>
+
+      <div class="sidebar-menu-wrapper">
+        <div class="sidebar-group">
+          <div class="sidebar-heading">QUẢN TRỊ VIÊN</div>
+          <ul class="sidebar-menu">
+            <li>
+              <a href="admin-dashboard.html" class="sidebar-link active">
+                <span class="sidebar-icon">📊</span>
+                <span class="sidebar-text">Tổng quan KPI</span>
+              </a>
+            </li>
+            <li>
+              <a href="#section-appointments" class="sidebar-link">
+                <span class="sidebar-icon">📅</span>
+                <span class="sidebar-text">Quản lý Lịch khám</span>
+                <span class="badge badge-warning sidebar-badge" id="sidebar-pending-badge">0</span>
+              </a>
+            </li>
+            <li>
+              <a href="#section-orders" class="sidebar-link">
+                <span class="sidebar-icon">🛒</span>
+                <span class="sidebar-text">Quản lý Đơn hàng</span>
+              </a>
+            </li>
+            <li>
+              <a href="pets.html" class="sidebar-link">
+                <span class="sidebar-icon">🐶</span>
+                <span class="sidebar-text">Quản lý Thú cưng</span>
+              </a>
+            </li>
+            <li>
+              <a href="services.html" class="sidebar-link">
+                <span class="sidebar-icon">🩺</span>
+                <span class="sidebar-text">Quản lý Dịch vụ</span>
+              </a>
+            </li>
+            <li>
+              <a href="products.html" class="sidebar-link">
+                <span class="sidebar-icon">💊</span>
+                <span class="sidebar-text">Quản lý Sản phẩm</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-group">
+          <div class="sidebar-heading">HỆ THỐNG</div>
+          <ul class="sidebar-menu">
+            <li>
+              <a href="../index.html" class="sidebar-link">
+                <span class="sidebar-icon">🌐</span>
+                <span class="sidebar-text">Xem Portal Khách hàng</span>
+              </a>
+            </li>
+            <li>
+              <a href="doctor-dashboard.html" class="sidebar-link">
+                <span class="sidebar-icon">🩺</span>
+                <span class="sidebar-text">Chuyển Bàn Bác sĩ</span>
+              </a>
+            </li>
+            <li>
+              <button onclick="logout()" class="sidebar-link" style="width: 100%; color: var(--danger); text-align: left; background: none; border: none; cursor: pointer;">
+                <span class="sidebar-icon">🚪</span>
+                <span class="sidebar-text">Đăng xuất</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="dashboard-main">
+      <!-- Topbar -->
+      <header class="dashboard-topbar">
+        <div class="d-flex items-center gap-3">
+          <button type="button" class="btn-back" style="margin-bottom: 0;" onclick="goBack('../index.html')" title="Quay lại">
+            <span class="btn-back-icon">←</span>
+            <span>Quay lại</span>
+          </button>
+          <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--dark);">Bảng Tổng Quan Quản Trị</h2>
+        </div>
+        <div class="d-flex items-center gap-3">
+          <span class="badge badge-success">● Máy chủ hoạt động ổn định</span>
+          <a href="../index.html" class="btn btn-outline btn-sm">Xem Portal</a>
+        </div>
+      </header>
+
+      <div class="dashboard-content">
+        <!-- 4 KPI Stat Cards -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-icon-wrap bg-teal">💰</div>
+            <div class="kpi-info">
+              <h4>Doanh Thu Đơn Hàng</h4>
+              <div class="kpi-value" id="kpi-revenue">0 ₫</div>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-icon-wrap bg-blue">📅</div>
+            <div class="kpi-info">
+              <h4>Lịch Khám Hôm Nay</h4>
+              <div class="kpi-value" id="kpi-today-apps">0</div>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-icon-wrap bg-amber">⏳</div>
+            <div class="kpi-info">
+              <h4>Lịch Đang Chờ Duyệt</h4>
+              <div class="kpi-value" id="kpi-pending-apps">0</div>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-icon-wrap bg-emerald">🐾</div>
+            <div class="kpi-info">
+              <h4>Tổng Thú Cưng Đã Lưu</h4>
+              <div class="kpi-value" id="kpi-total-pets">0</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Metric Charts Grid -->
+        <div class="grid grid-2 gap-4" style="margin-bottom: 30px;">
+          <!-- Appointments Chart Simulation -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Tần Suất Lịch Khám 7 Ngày Qua</h3>
+              <span class="badge badge-primary">Số ca khám</span>
+            </div>
+            <div class="metric-chart-container">
+              <div class="metric-bar-group"><div class="metric-bar" style="height: 45%;"></div><span class="metric-bar-label">T2</span></div>
+              <div class="metric-bar-group"><div class="metric-bar" style="height: 70%;"></div><span class="metric-bar-label">T3</span></div>
+              <div class="metric-bar-group"><div class="metric-bar" style="height: 60%;"></div><span class="metric-bar-label">T4</span></div>
+              <div class="metric-bar-group"><div class="metric-bar" style="height: 85%;"></div><span class="metric-bar-label">T5</span></div>
+              <div class="metric-bar-group"><div class="metric-bar" style="height: 95%;"></div><span class="metric-bar-label">T6</span></div>
+              <div class="metric-bar-group"><div class="metric-bar" style="height: 100%; background: linear-gradient(180deg, #f59e0b, #d97706);"></div><span class="metric-bar-label">T7</span></div>
+              <div class="metric-bar-group"><div class="metric-bar" style="height: 90%; background: linear-gradient(180deg, #f59e0b, #d97706);"></div><span class="metric-bar-label">CN</span></div>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center;">Thứ 7 & Chủ Nhật có lượng thú cưng đến khám và làm đẹp cao nhất trong tuần.</p>
+          </div>
+
+          <!-- Revenue Chart Simulation -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Doanh Thu Bán Hàng & Dịch Vụ</h3>
+              <span class="badge badge-success">VND</span>
+            </div>
+            <div class="metric-chart-container">
+              <div class="metric-bar-group"><div class="metric-bar" style="height: 40%; background: linear-gradient(180deg, #0284c7, #38bdf8);"></div><span class="metric-bar-label">Tuần 1</span></div>
+              <div class="metric-bar-group"><div class="metric-bar" style="height: 65%; background: linear-gradient(180deg, #0284c7, #38bdf8);"></div><span class="metric-bar-label">Tuần 2</span></div>
+              <div class="metric-bar-group"><div class="metric-bar" style="height: 80%; background: linear-gradient(180deg, #0284c7, #38bdf8);"></div><span class="metric-bar-label">Tuần 3</span></div>
+              <div class="metric-bar-group"><div class="metric-bar" style="height: 90%; background: linear-gradient(180deg, #0284c7, #38bdf8);"></div><span class="metric-bar-label">Tuần 4</span></div>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center;">Tăng trưởng 24% so với cùng kỳ tháng trước.</p>
+          </div>
+        </div>
+
+        <!-- Section: Appointments Management -->
+        <div class="card" id="section-appointments" style="margin-bottom: 30px;">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Quản Lý Lịch Khám & Hẹn Bác Sĩ</h3>
+              <p style="font-size: 0.88rem; color: var(--text-muted);">Duyệt lịch, xếp bác sĩ và theo dõi trạng thái các lượt khám</p>
+            </div>
+            <a href="booking.html" class="btn btn-primary btn-sm">+ Tạo lịch mới</a>
+          </div>
+
+          <div class="table-toolbar">
+            <div class="d-flex items-center gap-2 flex-wrap">
+              <button class="btn btn-primary btn-sm admin-app-filter-btn active" data-status="all">Tất cả lịch</button>
+              <button class="btn btn-outline btn-sm admin-app-filter-btn" data-status="pending">Chờ duyệt</button>
+              <button class="btn btn-outline btn-sm admin-app-filter-btn" data-status="confirmed">Đã xác nhận</button>
+              <button class="btn btn-outline btn-sm admin-app-filter-btn" data-status="completed">Hoàn thành</button>
+              <button class="btn btn-outline btn-sm admin-app-filter-btn" data-status="cancelled">Đã hủy</button>
+            </div>
+
+            <div class="table-search-box">
+              <input type="text" id="admin-app-search" class="form-control" placeholder="Tìm theo tên khách, thú cưng, dịch vụ...">
+              <span class="search-icon">🔍</span>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="custom-table" id="admin-appointments-table">
+              <thead>
+                <tr>
+                  <th>Mã hẹn</th>
+                  <th>Khách hàng</th>
+                  <th>Thú cưng</th>
+                  <th>Dịch vụ</th>
+                  <th>Thời gian</th>
+                  <th>Bác sĩ phụ trách</th>
+                  <th>Trạng thái</th>
+                  <th class="text-right">Hành động</th>
+                </tr>
+              </thead>
+              <tbody id="admin-appointments-tbody">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+            <div id="admin-appointments-pagination" class="table-pagination"></div>
+          </div>
+        </div>
+
+        <!-- Section: Orders Management -->
+        <div class="card" id="section-orders">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Đơn Hàng Gần Đây</h3>
+              <p style="font-size: 0.88rem; color: var(--text-muted);">Các đơn mua sản phẩm từ portal khách hàng</p>
+            </div>
+            <a href="order-history.html" class="btn btn-outline btn-sm">Xem tất cả đơn</a>
+          </div>
+
+          <div class="table-responsive">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Mã đơn</th>
+                  <th>Khách hàng</th>
+                  <th>Tổng giá trị</th>
+                  <th>Trạng thái</th>
+                  <th>Thời gian đặt</th>
+                </tr>
+              </thead>
+              <tbody id="admin-recent-orders-tbody">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/modal.js"></script>
+  <script src="../assets/js/table.js"></script>
+  <script src="../assets/js/dashboard.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initAdminDashboard();
+    });
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thanh Toán Đơn Hàng - PetCare Clinic</title>
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/modal.css">
+  <link rel="stylesheet" href="../assets/css/cart.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand-logo">
+        <span class="brand-icon">🐾</span>
+        <div>
+          <span>PetCare</span><span style="color: var(--primary);">Clinic</span>
+          <span style="display: block; font-size: 0.65rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.5px;">BÁC SĨ THÚ Y 24/7</span>
+        </div>
+      </a>
+
+      <!-- Sleek Horizontal Navigation Bar -->
+      <nav class="main-nav" id="main-nav">
+        <a href="../index.html" class="nav-link" data-link="home">
+          <span class="nav-icon">🏠</span>
+          <span>Trang chủ</span>
+        </a>
+        <a href="services.html" class="nav-link" data-link="services">
+          <span class="nav-icon">🩺</span>
+          <span>Dịch vụ y tế</span>
+        </a>
+        <a href="products.html" class="nav-link" data-link="products">
+          <span class="nav-icon">🛍️</span>
+          <span>Cửa hàng Pet</span>
+        </a>
+        <a href="booking.html" class="nav-link" data-link="booking">
+          <span class="nav-icon">📅</span>
+          <span>Đặt lịch khám</span>
+        </a>
+        <a href="pets.html" class="nav-link" data-link="pets">
+          <span class="nav-icon">🐾</span>
+          <span>Hồ sơ thú cưng</span>
+        </a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="cart.html" class="header-icon-btn" title="Giỏ hàng của bạn">
+          <span style="font-size: 1.15rem;">🛒</span>
+          <span class="header-badge cart-badge">0</span>
+        </a>
+
+        <div id="header-user-area"></div>
+
+        <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Toggle Menu">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main style="padding: 30px 0 80px;">
+    <div class="container">
+      <!-- Back Button & Breadcrumb -->
+      <div class="d-flex items-center gap-3 flex-wrap" style="margin-bottom: 24px;">
+        <button type="button" class="btn-back" style="margin-bottom: 0;" onclick="goBack('cart.html')" title="Quay lại Giỏ hàng">
+          <span class="btn-back-icon">←</span>
+          <span>Quay lại</span>
+        </button>
+        <div style="font-size: 0.9rem; color: var(--text-muted);">
+          <a href="../index.html">Trang chủ</a> / <a href="cart.html">Giỏ hàng</a> / <span style="color: var(--primary); font-weight: 600;">Thanh toán đơn</span>
+        </div>
+      </div>
+
+      <form id="checkout-form" onsubmit="handleCheckoutSubmit(event)">
+        <div class="cart-layout">
+          <!-- Left: Shipping Information & Payment Method -->
+          <div>
+            <div class="card" style="padding: 28px; margin-bottom: 24px;">
+              <h2 style="font-size: 1.3rem; font-weight: 800; color: var(--dark); margin-bottom: 20px;">
+                1. Thông Tin Nhận Hàng
+              </h2>
+
+              <div class="grid grid-2 gap-3">
+                <div class="form-group">
+                  <label for="checkout-name" class="form-label required">Họ và tên người nhận</label>
+                  <input type="text" id="checkout-name" class="form-control" placeholder="Nguyễn Văn A" required>
+                </div>
+                <div class="form-group">
+                  <label for="checkout-phone" class="form-label required">Số điện thoại liên lạc</label>
+                  <input type="tel" id="checkout-phone" class="form-control" placeholder="0912 345 678" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="checkout-email" class="form-label">Email nhận hóa đơn</label>
+                <input type="email" id="checkout-email" class="form-control" placeholder="name@example.com">
+              </div>
+
+              <div class="form-group">
+                <label for="checkout-address" class="form-label required">Địa chỉ giao hàng cụ thể</label>
+                <input type="text" id="checkout-address" class="form-control" placeholder="Số nhà, ngõ/ngách, tên đường, Phường/Xã, Quận/Huyện" required>
+              </div>
+
+              <div class="form-group">
+                <label for="checkout-notes" class="form-label">Ghi chú giao hàng (nếu có)</label>
+                <textarea id="checkout-notes" class="form-control" rows="2" placeholder="VD: Giao giờ hành chính, gọi trước khi đến..."></textarea>
+              </div>
+            </div>
+
+            <!-- Payment Method Selection -->
+            <div class="card" style="padding: 28px;">
+              <h2 style="font-size: 1.3rem; font-weight: 800; color: var(--dark); margin-bottom: 16px;">
+                2. Phương Thức Thanh Toán
+              </h2>
+
+              <div class="payment-methods-grid">
+                <div class="payment-method-card selected" onclick="selectPaymentMethod('COD', this)">
+                  <span class="method-icon">💵</span>
+                  <div class="method-title">Tiền mặt (COD)</div>
+                  <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Thanh toán khi nhận</div>
+                </div>
+
+                <div class="payment-method-card" onclick="selectPaymentMethod('VIETQR', this)">
+                  <span class="method-icon">📱</span>
+                  <div class="method-title">Chuyển khoản VietQR</div>
+                  <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Quét mã thanh toán tức thì</div>
+                </div>
+
+                <div class="payment-method-card" onclick="selectPaymentMethod('ATM/MOMO', this)">
+                  <span class="method-icon">💳</span>
+                  <div class="method-title">Ví MoMo / VNPAY</div>
+                  <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Thẻ nội địa & Quốc tế</div>
+                </div>
+              </div>
+
+              <!-- VietQR Simulation Box -->
+              <div id="vietqr-box" class="vietqr-box">
+                <div style="font-weight: 700; color: var(--dark); margin-bottom: 8px;">Quét mã VietQR để thanh toán</div>
+                <div style="width: 160px; height: 160px; margin: 0 auto 10px; background: #fff; padding: 8px; border-radius: 8px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center;">
+                  <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=PETCARE_CLINIC_DEMO_PAYMENT" alt="Mã VietQR mẫu" style="width: 100%; height: 100%;">
+                </div>
+                <div style="font-size: 0.85rem; color: var(--text-muted);">
+                  Ngân hàng: <strong>Vietcombank</strong> • STK: <strong>0011002233445</strong><br>
+                  Chủ TK: <strong>CONG TY CO PHAN PHONG KHAM THU Y PETCARE</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Order Items Summary -->
+          <div>
+            <div class="cart-summary-box">
+              <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--dark); margin-bottom: 16px;">
+                Đơn Hàng Của Bạn
+              </h3>
+
+              <div id="checkout-items-list" style="margin-bottom: 16px; max-height: 320px; overflow-y: auto;">
+                <!-- Rendered dynamically by cart.js -->
+              </div>
+
+              <div class="summary-row">
+                <span style="color: var(--text-muted);">Tạm tính:</span>
+                <strong id="checkout-subtotal">0 ₫</strong>
+              </div>
+              <div class="summary-row">
+                <span style="color: var(--text-muted);">Phí vận chuyển:</span>
+                <strong id="checkout-shipping">30.000 ₫</strong>
+              </div>
+              <div class="summary-row" id="checkout-discount-row" style="display: none; color: var(--success);">
+                <span>Giảm giá Voucher:</span>
+                <strong id="checkout-discount">- 0 ₫</strong>
+              </div>
+              <div class="summary-row total-row">
+                <span>Tổng cộng:</span>
+                <span id="checkout-total" style="color: var(--primary);">0 ₫</span>
+              </div>
+
+              <div style="margin-top: 24px;">
+                <button type="submit" id="btn-place-order" class="btn btn-primary btn-block btn-lg">
+                  🔒 Xác nhận Đặt Hàng
+                </button>
+              </div>
+
+              <div style="margin-top: 14px; text-align: center; font-size: 0.8rem; color: var(--text-muted);">
+                Bằng cách đặt hàng, bạn đồng ý với Điều khoản dịch vụ và chính sách kiểm hàng của chúng tôi.
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- Modal: Order Success Confirmation -->
+  <div class="modal-backdrop" id="order-success-modal">
+    <div class="modal-dialog">
+      <div class="modal-body text-center" style="padding: 40px 24px;">
+        <div style="font-size: 4rem; margin-bottom: 12px;">🎉</div>
+        <h2 style="font-size: 1.6rem; font-weight: 800; color: var(--success); margin-bottom: 8px;">
+          Đặt Hàng Thành Công!
+        </h2>
+        <p style="color: var(--text-muted); margin-bottom: 20px;">
+          Cảm ơn bạn đã tin tưởng mua sắm tại PetCare Clinic. Nhân viên chăm sóc sẽ liên hệ qua điện thoại để xác nhận đơn.
+        </p>
+
+        <div style="background-color: #f8fafc; border: 1px dashed var(--border); border-radius: 12px; padding: 18px; margin-bottom: 24px; text-align: left;">
+          <div class="d-flex justify-between" style="margin-bottom: 8px;">
+            <span style="color: var(--text-muted);">Mã đơn hàng:</span>
+            <strong id="order-success-code" style="color: var(--primary); font-size: 1.1rem;">---</strong>
+          </div>
+          <div class="d-flex justify-between" style="margin-bottom: 8px;">
+            <span style="color: var(--text-muted);">Tổng tiền:</span>
+            <strong id="order-success-total">---</strong>
+          </div>
+          <div class="d-flex justify-between">
+            <span style="color: var(--text-muted);">Hình thức:</span>
+            <strong id="order-success-payment">---</strong>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2 justify-center">
+          <a href="order-history.html" class="btn btn-primary">📦 Xem Lịch Sử Đơn Hàng</a>
+          <a href="../index.html" class="btn btn-outline">🏠 Về Trang Chủ</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>&copy; 2026 PetCare Clinic. Giữ toàn quyền.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/modal.js"></script>
+  <script src="../assets/js/cart.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initCheckoutPage();
+    });
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng nhập tài khoản - PetCare Clinic</title>
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/modal.css">
+  <link rel="stylesheet" href="../assets/css/auth.css">
+</head>
+<body>
+
+  <div class="auth-wrapper">
+    <div class="auth-container">
+      <!-- Left Hero Banner -->
+      <div class="auth-banner">
+        <div>
+          <a href="../index.html" class="brand-logo" style="color: #ffffff; margin-bottom: 24px; display: inline-flex;">
+            <span class="brand-icon" style="background: rgba(255,255,255,0.25); box-shadow: none;">🐾</span>
+            <span>PetCare<span style="color: #a7f3d0;">Clinic</span></span>
+          </a>
+          <h2 class="auth-banner-title">Yêu thương trọn vẹn, chăm sóc tận tâm</h2>
+          <p class="auth-banner-text">Đăng nhập để theo dõi hồ sơ thú cưng, đặt lịch khám nhanh chóng và quản lý lịch sử y tế một cách dễ dàng.</p>
+          
+          <div class="auth-features">
+            <div class="auth-feature-item">
+              <span class="auth-feature-icon">✓</span>
+              <span>Đặt lịch khám online 24/7 chỉ với 4 bước</span>
+            </div>
+            <div class="auth-feature-item">
+              <span class="auth-feature-icon">✓</span>
+              <span>Hồ sơ bệnh án điện tử cập nhật theo thời gian thực</span>
+            </div>
+            <div class="auth-feature-item">
+              <span class="auth-feature-icon">✓</span>
+              <span>Đội ngũ Thạc sĩ, Bác sĩ thú y giàu chuyên môn</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="font-size: 0.85rem; opacity: 0.8;">
+          Cấp cứu 24/7: <strong>1900 6868</strong> • Số 18 Hoàng Diệu, Ba Đình, Hà Nội
+        </div>
+      </div>
+
+      <!-- Right Form Section -->
+      <div class="auth-form-section">
+        <!-- Universal Back Button -->
+        <button type="button" class="btn-back" onclick="goBack('../index.html')" title="Quay lại Trang chủ">
+          <span class="btn-back-icon">←</span>
+          <span>Quay lại</span>
+        </button>
+
+        <div class="auth-header">
+          <h1 class="auth-title">Đăng nhập</h1>
+          <p class="auth-subtitle">Chào mừng bạn quay lại hệ thống PetCare Clinic</p>
+        </div>
+
+        <!-- Feedback Alert -->
+        <div class="auth-alert" id="auth-alert"></div>
+
+        <form id="login-form" onsubmit="handleLoginSubmit(event)">
+          <!-- Email / Username -->
+          <div class="form-group">
+            <label for="login-email" class="form-label required">Email hoặc Tên đăng nhập</label>
+            <input type="text" id="login-email" class="form-control" placeholder="vidu@gmail.com" autocomplete="username">
+            <span class="form-feedback error" id="login-email-error"></span>
+          </div>
+
+          <!-- Password with Toggle -->
+          <div class="form-group">
+            <div class="d-flex justify-between items-center" style="margin-bottom: 6px;">
+              <label for="login-password" class="form-label required" style="margin-bottom: 0;">Mật khẩu</label>
+              <a href="#" onclick="alert('Vui lòng liên hệ Hotline 1900 6868 hoặc admin@petcareclinic.vn để cấp lại mật khẩu.'); return false;" style="font-size: 0.85rem; color: var(--primary);">Quên mật khẩu?</a>
+            </div>
+            <div class="password-input-group">
+              <input type="password" id="login-password" class="form-control" placeholder="••••••••" autocomplete="current-password">
+              <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility('login-password', this)" title="Hiện mật khẩu">👁️‍🗨️</button>
+            </div>
+            <span class="form-feedback error" id="login-password-error"></span>
+          </div>
+
+          <!-- Remember Me Checkbox -->
+          <div class="auth-options">
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+              <input type="checkbox" id="remember-me" checked style="accent-color: var(--primary); width: 16px; height: 16px;">
+              <span>Ghi nhớ đăng nhập</span>
+            </label>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" id="btn-login-submit" class="btn btn-primary btn-block btn-lg">
+            Đăng nhập ngay
+          </button>
+        </form>
+
+        <!-- Link to Register -->
+        <div class="text-center" style="margin-top: 20px; font-size: 0.95rem;">
+          Chưa có tài khoản? <a href="register.html" style="color: var(--primary); font-weight: 700;">Đăng ký miễn phí</a>
+        </div>
+
+        <!-- Demo Fast Selector Helper -->
+        <div class="demo-role-box">
+          <div class="demo-role-box-title">
+            <span>⚡ Kiểm tra nhanh các vai trò:</span>
+            <span style="font-size: 0.75rem; color: var(--primary); font-weight: 500;">Bấm để tự điền</span>
+          </div>
+          <div class="demo-buttons-grid">
+            <button type="button" class="btn-demo-role" onclick="fillDemoAccount('customer')">Khách hàng</button>
+            <button type="button" class="btn-demo-role" onclick="fillDemoAccount('doctor')">Bác sĩ</button>
+            <button type="button" class="btn-demo-role" onclick="fillDemoAccount('admin')">Quản trị viên</button>
+          </div>
+        </div>
+
+        <div class="text-center" style="margin-top: 16px;">
+          <a href="../index.html" style="font-size: 0.88rem; color: var(--text-muted);">← Quay lại Trang chủ</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/modal.js"></script>
+  <script src="../assets/js/auth.js"></script>
+</body>
+</html>
+
