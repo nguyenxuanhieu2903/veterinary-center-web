@@ -138,6 +138,11 @@
 }
 
 /* Service Cards */
+.service-detail-layout {
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+  align-items: start;
+}
+
 .service-card {
   background: #ffffff;
   border: 1px solid var(--border);
@@ -357,6 +362,10 @@
 }
 
 @media (max-width: 900px) {
+  .service-detail-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   .hero-grid {
     grid-template-columns: 1fr;
     text-align: center;
@@ -374,4 +383,3 @@
     display: none;
   }
 }
-

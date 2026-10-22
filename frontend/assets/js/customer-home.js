@@ -2,8 +2,62 @@
  * PETCARE CLINIC - CUSTOMER PORTAL & SERVICE JS
  */
 
+function initStatsCountUp() {
+  const statsSection = document.querySelector('.stats-ribbon');
+  if (!statsSection) return;
+
+  const counters = statsSection.querySelectorAll('[data-count-target]');
+  if (counters.length === 0) return;
+
+  const formatter = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 0 });
+  const renderValue = (counter, value) => {
+    counter.textContent = `${formatter.format(value)}${counter.dataset.countSuffix || ''}`;
+  };
+  const renderFinalValues = () => {
+    counters.forEach(counter => {
+      renderValue(counter, Number(counter.dataset.countTarget));
+    });
+  };
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+    renderFinalValues();
+    return;
+  }
+
+  counters.forEach(counter => renderValue(counter, 0));
+
+  const observer = new IntersectionObserver(entries => {
+    if (!entries.some(entry => entry.isIntersecting)) return;
+
+    observer.disconnect();
+    const duration = 1800;
+    const startTime = performance.now();
+
+    const updateCounters = currentTime => {
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+      const easedProgress = 1 - Math.pow(1 - progress, 3);
+
+      counters.forEach(counter => {
+        const target = Number(counter.dataset.countTarget);
+        renderValue(counter, Math.floor(target * easedProgress));
+      });
+
+      if (progress < 1) {
+        requestAnimationFrame(updateCounters);
+      } else {
+        renderFinalValues();
+      }
+    };
+
+    requestAnimationFrame(updateCounters);
+  }, { threshold: 0.1 });
+
+  observer.observe(statsSection);
+}
+
 // Render Home Page Dynamic Content
 function initHomePage() {
+  initStatsCountUp();
   renderFeaturedServices();
   renderDoctorsList();
   renderFeaturedProducts();
@@ -224,4 +278,3 @@ function initServiceDetailPage() {
     `).join('');
   }
 }
-
