@@ -7,6 +7,11 @@ function toggleSidebar() {
   const sidebar = document.getElementById('dashboard-sidebar');
   if (!sidebar) return;
 
+  if (window.matchMedia('(max-width: 768px)').matches) {
+    sidebar.classList.toggle('mobile-open');
+    return;
+  }
+
   sidebar.classList.toggle('collapsed');
   const isCollapsed = sidebar.classList.contains('collapsed');
   localStorage.setItem('petcare_sidebar_collapsed', isCollapsed ? 'true' : 'false');
@@ -30,7 +35,7 @@ function checkSidebarState() {
     const avatarEl = document.getElementById('sidebar-user-avatar');
     if (nameEl) nameEl.textContent = user.name;
     if (roleEl) {
-      roleEl.textContent = user.role === 'admin' ? 'Quản trị viên' : user.role === 'doctor' ? 'Bác sĩ Thú y' : 'Khách hàng';
+      roleEl.textContent = user.role === 'admin' ? 'Quản trị viên' : user.role === 'doctor' ? 'Bác sĩ chuyên khoa' : 'Khách hàng';
       roleEl.className = `badge ${user.role === 'admin' ? 'badge-danger' : user.role === 'doctor' ? 'badge-primary' : 'badge-success'}`;
     }
     if (avatarEl && user.avatar) avatarEl.src = user.avatar;
@@ -69,16 +74,16 @@ function initAdminDashboard() {
         <tr>
           <td><strong style="color: var(--primary);">${app.id}</strong></td>
           <td>
-            <strong>${app.customerName}</strong>
+            <strong data-user-content>${app.customerName}</strong>
             <div style="font-size: 0.8rem; color: var(--text-muted);">${app.customerPhone}</div>
           </td>
           <td>
-            <strong>${app.petName}</strong>
+            <strong data-user-content>${app.petName}</strong>
             <div style="font-size: 0.8rem; color: var(--text-muted);">${app.petSpecies}</div>
           </td>
           <td>${app.serviceName}</td>
           <td>${app.time} - ${app.date}</td>
-          <td>${app.doctorName}</td>
+          <td data-user-content>${app.doctorName}</td>
           <td>${statusBadge}</td>
           <td class="text-right">
             <div class="d-flex gap-1 justify-end">
@@ -118,6 +123,7 @@ function initAdminDashboard() {
 
   // Render recent orders table
   renderAdminRecentOrders();
+  if (typeof initAdminManagement === 'function') initAdminManagement();
 }
 
 function calculateAdminKPIs() {
@@ -207,7 +213,7 @@ function renderAdminRecentOrders() {
   container.innerHTML = orders.map(ord => `
     <tr>
       <td><strong style="color: var(--primary);">${ord.id}</strong></td>
-      <td>${ord.customerName}</td>
+      <td data-user-content>${ord.customerName}</td>
       <td><strong>${formatCurrency(ord.total)}</strong></td>
       <td><span class="badge ${ord.status === 'completed' ? 'badge-success' : 'badge-primary'}">${ord.status}</span></td>
       <td style="font-size: 0.82rem; color: var(--text-muted);">${ord.date}</td>
@@ -263,7 +269,8 @@ function renderDoctorAppointmentsList(statusFilter = 'all') {
   }
 
   container.innerHTML = filtered.map(app => {
-    let statusBadge = '<span class="badge badge-warning">Chờ khám</span>';
+    let statusBadge = '<span class="badge badge-warning">Chờ xác nhận</span>';
+    if (app.status === 'confirmed') statusBadge = '<span class="badge badge-primary">Chờ khám</span>';
     if (app.status === 'in_progress') statusBadge = '<span class="badge badge-primary">Đang khám</span>';
     if (app.status === 'completed') statusBadge = '<span class="badge badge-success">Đã hoàn thành</span>';
     if (app.status === 'cancelled') statusBadge = '<span class="badge badge-danger">Đã hủy</span>';
@@ -276,8 +283,8 @@ function renderDoctorAppointmentsList(statusFilter = 'all') {
           <div style="font-size: 0.8rem; color: var(--text-muted);">${app.date}</div>
         </td>
         <td>
-          <strong>${app.petName}</strong> (${app.petSpecies})
-          <div style="font-size: 0.8rem; color: var(--text-muted);">Chủ: ${app.customerName} • ${app.customerPhone}</div>
+          <strong data-user-content>${app.petName}</strong> (${app.petSpecies})
+          <div style="font-size: 0.8rem; color: var(--text-muted);">Chủ: <span data-user-content>${app.customerName}</span> • ${app.customerPhone}</div>
         </td>
         <td>${app.serviceName}</td>
         <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${app.symptom}">
@@ -372,7 +379,7 @@ function renderPrescriptionList() {
   container.innerHTML = currentPrescriptionItems.map((item, idx) => `
     <div class="d-flex items-center justify-between" style="padding: 10px 14px; background: #f8fafc; border-radius: 8px; margin-bottom: 8px; border: 1px solid var(--border);">
       <div>
-        <strong style="color: var(--dark); font-size: 0.95rem;">${idx + 1}. ${item.name}</strong>
+        <strong data-user-content style="color: var(--dark); font-size: 0.95rem;">${idx + 1}. ${item.name}</strong>
         <div style="font-size: 0.85rem; color: var(--text-muted);">${item.dosage} • Thời gian: <strong>${item.days}</strong></div>
       </div>
       <button type="button" class="btn btn-outline btn-sm" onclick="removePrescriptionItem(${idx})" style="color: var(--danger); border-color: transparent;">✕</button>
@@ -446,4 +453,3 @@ function handleSaveMedicalRecord(e) {
     window.location.href = 'doctor-dashboard.html';
   }, 1000);
 }
-

@@ -128,8 +128,8 @@ function renderPetChoices(preselectId) {
     return `
     <div class="pet-select-card ${preselectId === pet.id ? 'selected' : ''}" onclick="selectBookingPet('${pet.id}', '${pet.name}', '${pet.species}', this)">
       <img src="${pet.image && !pet.image.startsWith(PET_IMAGE_REFERENCE_PREFIX) ? pet.image : fallbackImage}" data-pet-image="${pet.id}" alt="${pet.name}" class="pet-select-avatar">
-      <h4 style="font-weight: 800; font-size: 1.05rem; margin-bottom: 2px;">${pet.name}</h4>
-      <div style="font-size: 0.85rem; color: var(--text-muted);">${pet.breed}</div>
+      <h4 data-user-content style="font-weight: 800; font-size: 1.05rem; margin-bottom: 2px;">${pet.name}</h4>
+      <div data-user-content style="font-size: 0.85rem; color: var(--text-muted);">${pet.breed}</div>
       <div style="font-size: 0.8rem; margin-top: 6px;">
         <span class="badge ${pet.species === 'cat' ? 'badge-primary' : 'badge-warning'}">${pet.species === 'cat' ? 'Mèo' : 'Chó'}</span>
       </div>
@@ -170,12 +170,20 @@ function renderServiceChoices(preselectId) {
 
   const services = getFromDB(DB_KEYS.SERVICES);
 
-  select.innerHTML = '<option value="">-- Vui lòng chọn dịch vụ --</option>' +
-    services.map(s => `
-      <option value="${s.id}" data-price="${s.price}" data-name="${s.name}" ${preselectId === s.id ? 'selected' : ''}>
-        ${s.name} (${formatCurrency(s.price)} • ${s.duration})
-      </option>
-    `).join('');
+  const renderOptions = selectedId => {
+    const translate = value => window.translateUiText ? window.translateUiText(value) : value;
+    select.innerHTML = `<option value="">${translate('-- Vui lòng chọn dịch vụ --')}</option>` +
+      services.map(service => `
+        <option value="${service.id}" data-price="${service.price}" data-name="${service.name}" ${selectedId === service.id ? 'selected' : ''}>
+          ${translate(service.name)} (${formatCurrency(service.price)} • ${translate(service.duration)})
+        </option>
+      `).join('');
+  };
+
+  renderOptions(select.value || preselectId);
+  window.addEventListener('petcare:languagechange', () => {
+    renderOptions(select.value);
+  });
 
   if (preselectId) {
     const found = services.find(s => s.id === preselectId);

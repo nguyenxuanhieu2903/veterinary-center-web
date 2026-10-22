@@ -3,12 +3,20 @@
    ========================================================================== */
 
 .auth-wrapper {
+  position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 40px 20px;
   background: linear-gradient(135deg, #f0fdfa 0%, #e0f2fe 100%);
+}
+
+.auth-language-switcher {
+  position: absolute;
+  top: 14px;
+  right: max(12px, calc((100vw - 960px) / 2));
+  z-index: 10;
 }
 
 .auth-container {
@@ -215,4 +223,3 @@
     padding: 36px 24px;
   }
 }
-

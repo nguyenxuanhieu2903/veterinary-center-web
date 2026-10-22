@@ -168,7 +168,7 @@ function renderPetsList() {
 
   // Filter by owner if customer, or show all if admin/doctor
   let pets = allPets;
-  if (user && user.role === 'customer') {
+  if (user && user.role === 'customer' && !document.querySelector('.admin-dashboard')) {
     pets = allPets.filter(p => !p.ownerId || p.ownerId === user.id);
   }
 
@@ -232,7 +232,9 @@ function renderPetsList() {
         </div>
 
         <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px; flex: 1;">
-          <strong>Ghi chú:</strong> ${pet.notes || 'Không có ghi chú đặc biệt.'}
+          <strong>Ghi chú:</strong> ${pet.notes
+            ? `<span data-user-content>${pet.notes}</span>`
+            : 'Không có ghi chú đặc biệt.'}
         </p>
 
         <div class="pet-card-actions">
@@ -402,6 +404,7 @@ async function handlePetFormSubmit(e) {
     ModalManager.setLoading('pet-modal', false);
     closePetModal();
     renderPetsList();
+    if (typeof calculateAdminKPIs === 'function') calculateAdminKPIs();
   } catch (error) {
     console.error('Không thể lưu hồ sơ thú cưng:', error);
     ModalManager.setLoading('pet-modal', false);
@@ -449,6 +452,7 @@ function confirmDeletePet(petId, petName) {
       }
       showToast(`Đã xóa hồ sơ của "${petName}"`, 'success');
       renderPetsList();
+      if (typeof calculateAdminKPIs === 'function') calculateAdminKPIs();
     }
   });
 }

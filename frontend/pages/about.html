@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giới thiệu PetCareClinic - Câu chuyện chăm sóc thú cưng</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/customer-home.css">
+  <link rel="stylesheet" href="../assets/css/about.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand-logo">
+        <span class="brand-icon">🐾</span>
+        <div>
+          <span>PetCare</span><span style="color: var(--primary);">Clinic</span>
+          <span style="display: block; font-size: 0.65rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.5px;">BÁC SĨ THÚ Y 24/7</span>
+        </div>
+      </a>
+
+      <nav class="main-nav" id="main-nav">
+        <a href="../index.html" class="nav-link" data-link="home"><span class="nav-icon">🏠</span><span>Trang chủ</span></a>
+        <a href="about.html" class="nav-link active" data-link="about"><span class="nav-icon">🐾</span><span>Giới thiệu</span></a>
+        <a href="services.html" class="nav-link" data-link="services"><span class="nav-icon">🩺</span><span>Dịch vụ y tế</span></a>
+        <a href="products.html" class="nav-link" data-link="products"><span class="nav-icon">🛍️</span><span>Cửa hàng Pet</span></a>
+        <a href="booking.html" class="nav-link" data-link="booking"><span class="nav-icon">📅</span><span>Đặt lịch khám</span></a>
+        <a href="pets.html" class="nav-link" data-link="pets"><span class="nav-icon">🐾</span><span>Hồ sơ thú cưng</span></a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="cart.html" class="header-icon-btn" title="Giỏ hàng của bạn">
+          <span style="font-size: 1.15rem;">🛒</span>
+          <span class="header-badge cart-badge">0</span>
+        </a>
+        <div id="header-user-area"></div>
+        <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Toggle Menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container about-back-row">
+      <button type="button" class="btn-back" onclick="goBack('../index.html')" title="Quay lại Trang chủ">
+        <span class="btn-back-icon">←</span>
+        <span>Quay lại</span>
+      </button>
+    </div>
+
+    <section class="about-hero">
+      <div class="container about-hero-grid">
+        <div class="about-hero-copy">
+          <span class="about-eyebrow"><span aria-hidden="true">🐾</span> Yêu thương trong từng bước chăm sóc</span>
+          <h1>Câu Chuyện Về <span>PetCareClinic</span></h1>
+          <p>Chúng tôi tin mỗi thú cưng đều xứng đáng được sống khỏe mạnh và hạnh phúc. PetCareClinic kết hợp chuyên môn thú y, công nghệ hiện đại và sự tận tâm để đồng hành cùng bạn trong hành trình chăm sóc bé yêu.</p>
+          <a href="booking.html" class="btn btn-primary btn-lg">📅 Đặt lịch khám ngay</a>
+        </div>
+        <div class="about-hero-visual">
+          <div class="about-hero-blob"></div>
+          <img src="https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?w=900" alt="Bác sĩ ân cần chăm sóc một chú chó tại PetCareClinic">
+          <div class="about-hero-note"><span>💚</span><span>Chăm sóc bằng<br><strong>chuyên môn & yêu thương</strong></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-story-section">
+      <div class="container">
+        <div class="about-section-heading">
+          <span class="about-eyebrow">HÀNH TRÌNH CỦA CHÚNG TÔI</span>
+          <h2>Chăm sóc hôm nay, vun đắp những năm tháng khỏe mạnh</h2>
+          <p>Từ những ngày đầu tiên, sứ mệnh của chúng tôi luôn là mang dịch vụ thú y chất lượng đến gần hơn với mọi gia đình.</p>
+        </div>
+
+        <article class="about-story-row">
+          <div class="about-photo-wrap about-photo-history">
+            <div class="about-photo-blob"></div>
+            <img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=900" alt="Bác sĩ thú y đang khám cho thú cưng">
+            <span class="about-photo-caption">Khởi đầu từ sự tận tâm</span>
+          </div>
+          <div class="about-story-copy">
+            <span class="about-story-icon">🐾</span>
+            <span class="about-eyebrow">CÂU CHUYỆN CỦA CHÚNG TÔI</span>
+            <h3>Lớn lên cùng niềm tin của mỗi gia đình</h3>
+            <p>PetCareClinic bắt đầu với mong muốn tạo nên một nơi mà thú cưng được đón nhận như thành viên trong gia đình. Qua từng ca thăm khám và từng lời tư vấn, chúng tôi không ngừng hoàn thiện dịch vụ để trở thành người bạn đồng hành đáng tin cậy của các chủ nuôi.</p>
+            <p>Hôm nay, đội ngũ của chúng tôi tiếp tục gìn giữ giá trị ấy: lắng nghe kỹ lưỡng, giải thích rõ ràng và đặt sức khỏe của bé lên hàng đầu.</p>
+          </div>
+        </article>
+
+        <article class="about-story-row about-story-row-reverse">
+          <div class="about-photo-wrap about-photo-equipment">
+            <div class="about-photo-blob"></div>
+            <img src="https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?w=900" alt="Thiết bị chẩn đoán hình ảnh tại phòng khám">
+            <span class="about-photo-caption">Công nghệ hỗ trợ chẩn đoán</span>
+          </div>
+          <div class="about-story-copy">
+            <span class="about-story-icon">🔬</span>
+            <span class="about-eyebrow">TRANG THIẾT BỊ HIỆN ĐẠI</span>
+            <h3>Công nghệ tốt, quyết định chăm sóc chính xác</h3>
+            <p>Phòng khám được trang bị hệ thống chẩn đoán hình ảnh và xét nghiệm hỗ trợ bác sĩ đánh giá sức khỏe toàn diện, phát hiện sớm bất thường và đưa ra hướng điều trị phù hợp.</p>
+            <p>Khu vực phẫu thuật được chuẩn bị theo quy trình kiểm soát nhiễm khuẩn nghiêm ngặt, với hệ thống phòng mổ áp lực dương và thiết bị theo dõi cần thiết để chăm sóc bé an toàn trong suốt quá trình.</p>
+          </div>
+        </article>
+
+        <article class="about-story-row">
+          <div class="about-photo-wrap about-photo-team">
+            <div class="about-photo-blob"></div>
+            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=900" alt="Bác sĩ chuyên khoa tận tâm với thú cưng">
+            <span class="about-photo-caption">Vững chuyên môn, trọn yêu thương</span>
+          </div>
+          <div class="about-story-copy">
+            <span class="about-story-icon">🩺</span>
+            <span class="about-eyebrow">ĐỘI NGŨ CHUYÊN KHOA</span>
+            <h3>Bác sĩ giàu kinh nghiệm, luôn lắng nghe</h3>
+            <p>Đội ngũ bác sĩ thú y có kinh nghiệm trong khám tổng quát, nội khoa, ngoại khoa, tiêm chủng và chăm sóc dự phòng. Mỗi kế hoạch điều trị đều được cân nhắc dựa trên tình trạng riêng của từng bé.</p>
+            <p>Chúng tôi dành thời gian trao đổi cùng chủ nuôi để bạn hiểu rõ tình trạng sức khỏe, lựa chọn điều trị và cách chăm sóc bé tại nhà.</p>
+          </div>
+        </article>
+
+        <article class="about-story-row about-story-row-reverse">
+          <div class="about-photo-wrap about-photo-community">
+            <div class="about-photo-blob"></div>
+            <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=900" alt="Chủ nuôi vui vẻ bên thú cưng khỏe mạnh">
+            <span class="about-photo-caption">Niềm vui của bé là động lực của chúng tôi</span>
+          </div>
+          <div class="about-story-copy">
+            <span class="about-story-icon">💚</span>
+            <span class="about-eyebrow">CAM KẾT CỦA PETCARECLINIC</span>
+            <h3>Niềm tin được xây dựng từ những điều tử tế</h3>
+            <p>Chúng tôi cam kết tư vấn minh bạch, sử dụng thuốc và vaccine có nguồn gốc rõ ràng, đồng thời chăm sóc mỗi thú cưng bằng sự nhẹ nhàng và tôn trọng.</p>
+            <blockquote class="about-testimonial">
+              <span class="about-testimonial-stars" aria-label="5 trên 5 sao">★★★★★</span>
+              <p>“Bác sĩ giải thích rất tận tình, bé nhà mình được chăm sóc chu đáo và khỏe lại nhanh. Mình an tâm mỗi lần đưa bé đến khám.”</p>
+              <cite>— Một gia đình đồng hành cùng PetCareClinic</cite>
+            </blockquote>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="about-stats stats-ribbon">
+      <div class="container">
+        <div class="about-stats-heading">
+          <span class="about-eyebrow">PETCARECLINIC QUA NHỮNG CON SỐ</span>
+          <h2>Chuyên môn vững vàng, luôn sẵn sàng đồng hành</h2>
+        </div>
+        <div class="grid grid-4 gap-4">
+          <div class="stat-item">
+            <div class="stat-number" data-count-target="15" data-count-suffix="+">15+</div>
+            <div class="stat-label">Bác sĩ chuyên khoa đầu ngành</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-count-target="25000" data-count-suffix="+">25.000+</div>
+            <div class="stat-label">Thú cưng được khám & chữa khỏi</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-count-target="100" data-count-suffix="%">100%</div>
+            <div class="stat-label">Thuốc & Vaccine chính hãng</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-count-target="24" data-count-suffix="/7">24/7</div>
+            <div class="stat-label">Trực cấp cứu & Lưu chuồng</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-cta-section">
+      <div class="container">
+        <div class="about-cta-card">
+          <span class="about-cta-paw" aria-hidden="true">🐾</span>
+          <h2>Hãy để chúng tôi chăm sóc bé yêu của bạn</h2>
+          <p>Đặt lịch ngay để đội ngũ PetCareClinic đồng hành cùng bạn trên hành trình khỏe mạnh của thú cưng.</p>
+          <a href="booking.html" class="btn btn-primary btn-lg">📅 Đặt lịch khám ngay</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>&copy; 2026 PetCare Clinic. Giữ toàn quyền.</div>
+        <div class="d-flex gap-4">
+          <a href="../index.html">Trang chủ</a>
+          <a href="services.html">Dịch vụ</a>
+          <a href="booking.html">Đặt lịch</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/customer-home.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', initStatsCountUp);
+  </script>
+</body>
+</html>

@@ -13,7 +13,7 @@
 </head>
 <body>
 
-  <div class="dashboard-layout">
+  <div class="dashboard-layout doctor-dashboard">
     <!-- Collapsible Sidebar Component -->
     <aside class="dashboard-sidebar" id="dashboard-sidebar">
       <div class="sidebar-header">
@@ -30,7 +30,7 @@
         <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=120" alt="Avatar" class="sidebar-user-avatar" id="sidebar-user-avatar">
         <div class="sidebar-user-info">
           <h4 id="sidebar-user-name">BS. Nguyễn Văn An</h4>
-          <span class="badge badge-primary" id="sidebar-user-role">Bác sĩ Thú Y</span>
+          <span class="badge badge-primary" id="sidebar-user-role">Bác sĩ chuyên khoa</span>
         </div>
       </div>
 
@@ -63,18 +63,6 @@
           <div class="sidebar-heading">HỆ THỐNG</div>
           <ul class="sidebar-menu">
             <li>
-              <a href="../index.html" class="sidebar-link">
-                <span class="sidebar-icon">🌐</span>
-                <span class="sidebar-text">Portal Khách hàng</span>
-              </a>
-            </li>
-            <li>
-              <a href="admin-dashboard.html" class="sidebar-link">
-                <span class="sidebar-icon">🛡️</span>
-                <span class="sidebar-text">Bảng Admin</span>
-              </a>
-            </li>
-            <li>
               <button onclick="logout()" class="sidebar-link" style="width: 100%; color: var(--danger); text-align: left; background: none; border: none; cursor: pointer;">
                 <span class="sidebar-icon">🚪</span>
                 <span class="sidebar-text">Đăng xuất</span>
@@ -88,46 +76,41 @@
     <!-- Main Content Area -->
     <div class="dashboard-main">
       <!-- Topbar -->
-      <header class="dashboard-topbar">
+      <header class="dashboard-topbar doctor-topbar">
         <div class="d-flex items-center gap-3">
-          <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--dark);">Phòng Khám Lâm Sàng - Bác Sĩ Trực Ca</h2>
+          <div>
+            <span class="doctor-topbar-eyebrow">PETCARECLINIC · CHĂM SÓC LÂM SÀNG</span>
+            <h2 class="doctor-topbar-title">Phòng Khám Lâm Sàng – Bác Sĩ Trực Ca</h2>
+          </div>
         </div>
-        <div class="d-flex items-center gap-3">
-          <span class="badge badge-primary">👨‍⚕️ Trạng thái: Sẵn sàng nhận khám</span>
+        <div class="doctor-topbar-actions">
+          <span class="doctor-availability"><span aria-hidden="true"></span>Sẵn sàng nhận khám</span>
         </div>
       </header>
 
       <div class="dashboard-content">
-        <!-- Banner Info -->
-        <div class="card" style="margin-bottom: 24px; background: linear-gradient(135deg, #f0fdfa, #e0f2fe); border-color: #99f6e4;">
-          <div class="d-flex items-center justify-between flex-wrap gap-3">
+        <section class="doctor-appointments-panel card">
+          <div class="doctor-panel-heading">
             <div>
-              <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--dark); margin-bottom: 4px;">Danh Sách Ca Khám Được Phân Bổ</h3>
-              <p style="color: var(--text-muted); font-size: 0.95rem;">Bác sĩ thực hiện khám lâm sàng, chẩn đoán, kê đơn và lưu bệnh án điện tử.</p>
+              <span class="doctor-section-eyebrow">LỊCH KHÁM</span>
+              <h3>Danh Sách Ca Khám Được Phân Bổ</h3>
+              <p>Bác sĩ thực hiện khám lâm sàng, chẩn đoán, kê đơn và lưu bệnh án điện tử.</p>
             </div>
-            <a href="medical-record.html" class="btn btn-primary">
-              📋 Tạo Bệnh Án Mới
+            <a href="medical-record.html" class="btn btn-primary doctor-create-record">
+              <span aria-hidden="true">＋</span> Tạo Bệnh Án Mới
             </a>
           </div>
-        </div>
 
-        <!-- Toolbar Filters -->
-        <div class="card" style="padding: 16px 20px; margin-bottom: 24px;">
-          <div class="d-flex items-center justify-between flex-wrap gap-3">
-            <div class="d-flex items-center gap-2 flex-wrap">
-              <button class="btn btn-primary btn-sm doctor-filter-btn active" data-status="all">Tất cả ca khám</button>
-              <button class="btn btn-outline btn-sm doctor-filter-btn" data-status="pending">Chờ xác nhận</button>
-              <button class="btn btn-outline btn-sm doctor-filter-btn" data-status="confirmed">Chờ khám</button>
-              <button class="btn btn-outline btn-sm doctor-filter-btn" data-status="in_progress">Đang khám</button>
-              <button class="btn btn-outline btn-sm doctor-filter-btn" data-status="completed">Đã hoàn thành</button>
-            </div>
+          <div class="doctor-appointment-filters" role="group" aria-label="Lọc ca khám theo trạng thái">
+            <button class="btn btn-primary btn-sm doctor-filter-btn active" data-status="all">Tất cả ca khám</button>
+            <button class="btn btn-outline btn-sm doctor-filter-btn" data-status="pending">Chờ xác nhận</button>
+            <button class="btn btn-outline btn-sm doctor-filter-btn" data-status="confirmed">Chờ khám</button>
+            <button class="btn btn-outline btn-sm doctor-filter-btn" data-status="in_progress">Đang khám</button>
+            <button class="btn btn-outline btn-sm doctor-filter-btn" data-status="completed">Đã hoàn thành</button>
           </div>
-        </div>
 
-        <!-- Doctor Appointments Table -->
-        <div class="card">
           <div class="table-responsive">
-            <table class="custom-table">
+            <table class="custom-table doctor-appointments-table">
               <thead>
                 <tr>
                   <th>Mã ca</th>
@@ -144,7 +127,7 @@
               </tbody>
             </table>
           </div>
-        </div>
+        </section>
       </div>
     </div>
   </div>
@@ -160,4 +143,3 @@
   </script>
 </body>
 </html>
-

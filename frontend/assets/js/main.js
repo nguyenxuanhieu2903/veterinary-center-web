@@ -3,6 +3,17 @@
  * Provides Global State, Mock Database, Auth, Cart Counter & Shared Utilities
  */
 
+(() => {
+  const currentScript = document.currentScript;
+  if (!currentScript) return;
+
+  const languageScript = document.createElement('script');
+  languageScript.src = new URL('i18n.js', currentScript.src).href;
+  languageScript.async = true;
+  languageScript.onerror = () => console.error('Không thể tải bộ chuyển đổi ngôn ngữ PetCareClinic.');
+  document.head.appendChild(languageScript);
+})();
+
 // Global App Configuration & Mock Database Keys
 const DB_KEYS = {
   USER: 'petcare_current_user',
@@ -468,7 +479,8 @@ function saveToDB(key, data) {
 
 // Format Currency
 function formatCurrency(amount) {
-  return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+  const locale = window.currentLanguage === 'en' ? 'en-US' : 'vi-VN';
+  return new Intl.NumberFormat(locale, { style: 'currency', currency: 'VND' }).format(amount);
 }
 
 // Global Toast System
@@ -588,7 +600,7 @@ function updateHeaderAuthState() {
         <button class="user-avatar-btn" id="btn-user-dropdown" onclick="toggleUserDropdown(event)">
           <img src="${user.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150'}" alt="${user.name}" class="user-avatar">
           <div style="text-align: left; line-height: 1.2;" class="d-none d-md-block">
-            <span style="font-weight: 700; font-size: 0.88rem; display: block;">${user.name}</span>
+            <span data-user-content style="font-weight: 700; font-size: 0.88rem; display: block;">${user.name}</span>
             <span class="badge ${user.role === 'admin' ? 'badge-danger' : user.role === 'doctor' ? 'badge-primary' : 'badge-success'}" style="font-size: 0.7rem; padding: 2px 6px;">
               ${user.role === 'admin' ? 'Quản trị viên' : user.role === 'doctor' ? 'Bác sĩ' : 'Khách hàng'}
             </span>
@@ -697,4 +709,3 @@ document.addEventListener('DOMContentLoaded', () => {
   updateCartBadge();
   updateHeaderAuthState();
 });
-

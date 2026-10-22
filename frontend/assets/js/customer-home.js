@@ -9,8 +9,10 @@ function initStatsCountUp() {
   const counters = statsSection.querySelectorAll('[data-count-target]');
   if (counters.length === 0) return;
 
-  const formatter = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 0 });
+  let hasAnimated = false;
   const renderValue = (counter, value) => {
+    const locale = window.currentLanguage === 'en' ? 'en-US' : 'vi-VN';
+    const formatter = new Intl.NumberFormat(locale, { maximumFractionDigits: 0 });
     counter.textContent = `${formatter.format(value)}${counter.dataset.countSuffix || ''}`;
   };
   const renderFinalValues = () => {
@@ -19,7 +21,12 @@ function initStatsCountUp() {
     });
   };
 
+  window.addEventListener('petcare:languagechange', () => {
+    if (hasAnimated) renderFinalValues();
+  });
+
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+    hasAnimated = true;
     renderFinalValues();
     return;
   }
@@ -45,6 +52,7 @@ function initStatsCountUp() {
       if (progress < 1) {
         requestAnimationFrame(updateCounters);
       } else {
+        hasAnimated = true;
         renderFinalValues();
       }
     };

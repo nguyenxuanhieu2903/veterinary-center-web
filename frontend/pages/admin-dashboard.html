@@ -10,10 +10,11 @@
   <link rel="stylesheet" href="../assets/css/modal.css">
   <link rel="stylesheet" href="../assets/css/table.css">
   <link rel="stylesheet" href="../assets/css/dashboard.css">
+  <link rel="stylesheet" href="../assets/css/pets.css">
 </head>
 <body>
 
-  <div class="dashboard-layout">
+  <div class="dashboard-layout admin-dashboard">
     <!-- Collapsible Sidebar Component -->
     <aside class="dashboard-sidebar" id="dashboard-sidebar">
       <div class="sidebar-header">
@@ -39,38 +40,38 @@
           <div class="sidebar-heading">QUẢN TRỊ VIÊN</div>
           <ul class="sidebar-menu">
             <li>
-              <a href="admin-dashboard.html" class="sidebar-link active">
+              <a href="#section-overview" class="sidebar-link active" data-admin-section="section-overview">
                 <span class="sidebar-icon">📊</span>
                 <span class="sidebar-text">Tổng quan KPI</span>
               </a>
             </li>
             <li>
-              <a href="#section-appointments" class="sidebar-link">
+              <a href="#section-appointments" class="sidebar-link" data-admin-section="section-appointments">
                 <span class="sidebar-icon">📅</span>
                 <span class="sidebar-text">Quản lý Lịch khám</span>
                 <span class="badge badge-warning sidebar-badge" id="sidebar-pending-badge">0</span>
               </a>
             </li>
             <li>
-              <a href="#section-orders" class="sidebar-link">
+              <a href="#section-orders" class="sidebar-link" data-admin-section="section-orders">
                 <span class="sidebar-icon">🛒</span>
                 <span class="sidebar-text">Quản lý Đơn hàng</span>
               </a>
             </li>
             <li>
-              <a href="pets.html" class="sidebar-link">
+              <a href="#section-pets" class="sidebar-link" data-admin-section="section-pets">
                 <span class="sidebar-icon">🐶</span>
                 <span class="sidebar-text">Quản lý Thú cưng</span>
               </a>
             </li>
             <li>
-              <a href="services.html" class="sidebar-link">
+              <a href="#section-services" class="sidebar-link" data-admin-section="section-services">
                 <span class="sidebar-icon">🩺</span>
                 <span class="sidebar-text">Quản lý Dịch vụ</span>
               </a>
             </li>
             <li>
-              <a href="products.html" class="sidebar-link">
+              <a href="#section-products" class="sidebar-link" data-admin-section="section-products">
                 <span class="sidebar-icon">💊</span>
                 <span class="sidebar-text">Quản lý Sản phẩm</span>
               </a>
@@ -107,8 +108,9 @@
     <!-- Main Content Area -->
     <div class="dashboard-main">
       <!-- Topbar -->
-      <header class="dashboard-topbar">
+      <header class="dashboard-topbar admin-topbar">
         <div class="d-flex items-center gap-3">
+          <button type="button" class="admin-mobile-sidebar-toggle" onclick="toggleSidebar()" aria-label="Mở thanh điều hướng">☰</button>
           <button type="button" class="btn-back" style="margin-bottom: 0;" onclick="goBack('../index.html')" title="Quay lại">
             <span class="btn-back-icon">←</span>
             <span>Quay lại</span>
@@ -121,9 +123,9 @@
         </div>
       </header>
 
-      <div class="dashboard-content">
+      <div class="dashboard-content" id="admin-dashboard-content">
         <!-- 4 KPI Stat Cards -->
-        <div class="kpi-grid">
+        <section class="kpi-grid admin-section" id="section-overview">
           <div class="kpi-card">
             <div class="kpi-icon-wrap bg-teal">💰</div>
             <div class="kpi-info">
@@ -155,7 +157,7 @@
               <div class="kpi-value" id="kpi-total-pets">0</div>
             </div>
           </div>
-        </div>
+        </section>
 
         <!-- Metric Charts Grid -->
         <div class="grid grid-2 gap-4" style="margin-bottom: 30px;">
@@ -194,7 +196,7 @@
         </div>
 
         <!-- Section: Appointments Management -->
-        <div class="card" id="section-appointments" style="margin-bottom: 30px;">
+        <section class="card admin-section admin-management-section" id="section-appointments">
           <div class="card-header">
             <div>
               <h3 class="card-title">Quản Lý Lịch Khám & Hẹn Bác Sĩ</h3>
@@ -238,10 +240,10 @@
             </table>
             <div id="admin-appointments-pagination" class="table-pagination"></div>
           </div>
-        </div>
+        </section>
 
         <!-- Section: Orders Management -->
-        <div class="card" id="section-orders">
+        <section class="card admin-section admin-management-section" id="section-orders">
           <div class="card-header">
             <div>
               <h3 class="card-title">Đơn Hàng Gần Đây</h3>
@@ -266,8 +268,108 @@
               </tbody>
             </table>
           </div>
+        </section>
+
+          <section class="card admin-section admin-management-section" id="section-pets">
+            <div class="card-header admin-management-heading">
+              <div>
+                <h3 class="card-title">Quản Lý Thú Cưng</h3>
+                <p class="admin-section-description">Tra cứu, cập nhật và quản lý hồ sơ thú cưng trên hệ thống.</p>
+              </div>
+              <button type="button" class="btn btn-primary btn-sm" onclick="openPetModal()">＋ Thêm thú cưng mới</button>
+            </div>
+            <div class="admin-pet-toolbar">
+              <div class="d-flex items-center gap-2 flex-wrap">
+                <button class="btn btn-primary btn-sm pet-species-filter-btn active" data-species="all">Tất cả</button>
+                <button class="btn btn-outline btn-sm pet-species-filter-btn" data-species="cat">🐱 Mèo</button>
+                <button class="btn btn-outline btn-sm pet-species-filter-btn" data-species="dog">🐶 Chó</button>
+              </div>
+              <input type="search" id="pet-search-input" class="form-control" placeholder="Tìm theo tên hoặc giống...">
+            </div>
+            <div class="grid grid-3 gap-4 admin-pets-grid" id="pets-grid"></div>
+          </section>
+
+          <section class="card admin-section admin-management-section" id="section-products">
+            <div class="card-header admin-management-heading">
+              <div>
+                <h3 class="card-title">Quản Lý Sản Phẩm</h3>
+                <p class="admin-section-description">Cập nhật danh mục sản phẩm và theo dõi tình trạng tồn kho.</p>
+              </div>
+              <button type="button" class="btn btn-primary btn-sm" onclick="openCatalogModal('product')">＋ Thêm sản phẩm</button>
+            </div>
+            <div class="table-responsive">
+              <table class="custom-table admin-catalog-table">
+                <thead><tr><th>Sản phẩm</th><th>Danh mục</th><th>Giá bán</th><th>Tồn kho</th><th>Trạng thái</th><th class="text-right">Thao tác</th></tr></thead>
+                <tbody id="admin-products-tbody"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="card admin-section admin-management-section" id="section-services">
+            <div class="card-header admin-management-heading">
+              <div>
+                <h3 class="card-title">Quản Lý Dịch Vụ</h3>
+                <p class="admin-section-description">Quản lý dịch vụ khám và chăm sóc đang được cung cấp.</p>
+              </div>
+              <button type="button" class="btn btn-primary btn-sm" onclick="openCatalogModal('service')">＋ Thêm dịch vụ</button>
+            </div>
+            <div class="grid grid-3 gap-4 admin-service-grid" id="admin-services-grid"></div>
+          </section>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="pet-modal">
+    <div class="modal-dialog modal-lg pet-modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" id="pet-modal-title">Thêm hồ sơ thú cưng</h3>
+        <button class="modal-close" type="button" onclick="closePetModal()">&times;</button>
+      </div>
+      <form id="pet-form" class="pet-modal-form" onsubmit="handlePetFormSubmit(event)">
+        <div class="modal-body">
+          <input type="hidden" id="pet-form-id">
+          <div class="grid grid-2 gap-3">
+            <div class="form-group"><label for="pet-name" class="form-label required">Tên thú cưng</label><input type="text" id="pet-name" class="form-control" required></div>
+            <div class="form-group"><label for="pet-species" class="form-label required">Loài</label><select id="pet-species" class="form-control" required><option value="cat">Mèo</option><option value="dog">Chó</option><option value="other">Loài khác</option></select></div>
+          </div>
+          <div class="grid grid-2 gap-3">
+            <div class="form-group"><label for="pet-breed" class="form-label required">Giống loài</label><input type="text" id="pet-breed" class="form-control" required></div>
+            <div class="form-group"><label for="pet-gender" class="form-label">Giới tính</label><select id="pet-gender" class="form-control"><option value="Đực">Đực</option><option value="Cái">Cái</option></select></div>
+          </div>
+          <div class="grid grid-3 gap-3">
+            <div class="form-group"><label for="pet-birth" class="form-label">Ngày sinh</label><input type="date" id="pet-birth" class="form-control"></div>
+            <div class="form-group"><label for="pet-weight" class="form-label">Cân nặng (kg)</label><input type="number" step="0.1" id="pet-weight" class="form-control"></div>
+            <div class="form-group"><label for="pet-color" class="form-label">Màu lông</label><input type="text" id="pet-color" class="form-control"></div>
+          </div>
+          <div class="form-group">
+            <span class="form-label">Ảnh đại diện thú cưng</span>
+            <input type="file" id="pet-image" accept="image/png,image/jpeg,image/webp" hidden>
+            <div class="image-preview-box" id="pet-image-dropzone">
+              <div class="pet-image-empty" id="pet-image-empty"><span class="pet-image-icon" aria-hidden="true">🖼️</span><span>Kéo thả ảnh vào đây hoặc nhấn nút bên dưới để chọn</span></div>
+              <img id="pet-image-preview" alt="Xem trước ảnh thú cưng" hidden>
+              <div class="pet-image-actions" id="pet-image-actions" hidden>
+                <button type="button" class="btn btn-outline btn-sm" onclick="document.getElementById('pet-image').click()">Thay ảnh</button>
+                <button type="button" class="btn btn-danger-outline btn-sm" onclick="clearPetImage()">Xóa ảnh</button>
+              </div>
+            </div>
+            <div class="pet-image-controls"><button type="button" class="btn btn-outline btn-sm" onclick="document.getElementById('pet-image').click()">📷 Chọn ảnh từ máy tính</button><span class="pet-image-hint">PNG, JPG, JPEG hoặc WEBP, tối đa 5MB</span></div>
+            <p class="pet-image-error" id="pet-image-error" role="alert" hidden></p>
+          </div>
+          <div class="form-group"><label for="pet-notes" class="form-label">Ghi chú sức khỏe / Dị ứng</label><textarea id="pet-notes" class="form-control" rows="3"></textarea></div>
+        </div>
+        <div class="modal-footer"><button type="button" class="btn btn-outline" onclick="closePetModal()">Hủy bỏ</button><button type="submit" class="btn btn-primary">Lưu hồ sơ thú cưng</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="catalog-modal">
+    <div class="modal-dialog modal-md">
+      <div class="modal-header"><h3 class="modal-title" id="catalog-modal-title">Thêm danh mục</h3><button type="button" class="modal-close" onclick="ModalManager.close('catalog-modal')">&times;</button></div>
+      <form id="catalog-form" onsubmit="saveCatalogItem(event)">
+        <div class="modal-body" id="catalog-form-fields"></div>
+        <div class="modal-footer"><button type="button" class="btn btn-outline" onclick="ModalManager.close('catalog-modal')">Hủy</button><button type="submit" class="btn btn-primary">Lưu</button></div>
+      </form>
     </div>
   </div>
 
@@ -275,7 +377,10 @@
   <script src="../assets/js/main.js"></script>
   <script src="../assets/js/modal.js"></script>
   <script src="../assets/js/table.js"></script>
+  <script src="../assets/js/pet-images.js"></script>
+  <script src="../assets/js/pets.js"></script>
   <script src="../assets/js/dashboard.js"></script>
+  <script src="../assets/js/admin-management.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       initAdminDashboard();
@@ -283,4 +388,3 @@
   </script>
 </body>
 </html>
-
