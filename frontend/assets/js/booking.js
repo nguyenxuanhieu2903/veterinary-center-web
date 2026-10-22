@@ -123,16 +123,26 @@ function renderPetChoices(preselectId) {
 
   const pets = getFromDB(DB_KEYS.PETS);
 
-  container.innerHTML = pets.map(pet => `
+  container.innerHTML = pets.map(pet => {
+    const fallbackImage = 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=200';
+    return `
     <div class="pet-select-card ${preselectId === pet.id ? 'selected' : ''}" onclick="selectBookingPet('${pet.id}', '${pet.name}', '${pet.species}', this)">
-      <img src="${pet.image || 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=200'}" alt="${pet.name}" class="pet-select-avatar">
+      <img src="${pet.image && !pet.image.startsWith(PET_IMAGE_REFERENCE_PREFIX) ? pet.image : fallbackImage}" data-pet-image="${pet.id}" alt="${pet.name}" class="pet-select-avatar">
       <h4 style="font-weight: 800; font-size: 1.05rem; margin-bottom: 2px;">${pet.name}</h4>
       <div style="font-size: 0.85rem; color: var(--text-muted);">${pet.breed}</div>
       <div style="font-size: 0.8rem; margin-top: 6px;">
         <span class="badge ${pet.species === 'cat' ? 'badge-primary' : 'badge-warning'}">${pet.species === 'cat' ? 'Mèo' : 'Chó'}</span>
       </div>
     </div>
-  `).join('');
+  `;
+  }).join('');
+
+  pets.forEach(pet => {
+    const image = container.querySelector(`[data-pet-image="${pet.id}"]`);
+    if (image) {
+      setPetImageSource(image, pet.image, 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=200');
+    }
+  });
 
   if (preselectId) {
     const pet = pets.find(p => p.id === preselectId);
@@ -340,4 +350,3 @@ function submitAppointmentBooking() {
     submitBtn.innerHTML = 'Đặt lịch thành công!';
   }, 1000);
 }
-

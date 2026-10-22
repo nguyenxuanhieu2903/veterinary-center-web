@@ -4,10 +4,14 @@
 
 let currentFilterSpecies = 'all';
 let currentSearchTerm = '';
+let selectedPetImage = null;
+let petImagePreviewUrl = null;
+let removePetImage = false;
 
 // Initialize Pets List Page
 function initPetsPage() {
   renderPetsList();
+  initPetImageUpload();
 
   const searchInput = document.getElementById('pet-search-input');
   if (searchInput) {
@@ -28,6 +32,130 @@ function initPetsPage() {
       renderPetsList();
     });
   });
+}
+
+function initPetImageUpload() {
+  const input = document.getElementById('pet-image');
+  const dropzone = document.getElementById('pet-image-dropzone');
+  const modal = document.getElementById('pet-modal');
+  if (!input || !dropzone || !modal) return;
+
+  input.addEventListener('change', () => {
+    const file = input.files[0];
+    if (file) acceptPetImage(file);
+    input.value = '';
+  });
+
+  ['dragenter', 'dragover'].forEach(eventName => {
+    dropzone.addEventListener(eventName, event => {
+      event.preventDefault();
+      dropzone.classList.add('is-dragging');
+    });
+  });
+
+  ['dragleave', 'drop'].forEach(eventName => {
+    dropzone.addEventListener(eventName, event => {
+      event.preventDefault();
+      dropzone.classList.remove('is-dragging');
+    });
+  });
+
+  dropzone.addEventListener('drop', event => {
+    const [file] = event.dataTransfer.files;
+    if (file) acceptPetImage(file);
+  });
+
+  modal.addEventListener('click', event => {
+    if (event.target !== modal) return;
+    if (modal.querySelector('.modal-loading-overlay.active')) {
+      event.stopImmediatePropagation();
+      return;
+    }
+    releasePetImagePreview();
+  }, true);
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && ModalManager.activeModal?.id === 'pet-modal') {
+      if (modal.querySelector('.modal-loading-overlay.active')) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        return;
+      }
+      releasePetImagePreview();
+    }
+  }, true);
+}
+
+function acceptPetImage(file) {
+  const validTypes = ['image/png', 'image/jpeg', 'image/webp'];
+  if (!validTypes.includes(file.type)) {
+    showPetImageError('Định dạng ảnh không hợp lệ. Vui lòng chọn PNG, JPG, JPEG hoặc WEBP.');
+    return;
+  }
+  if (file.size > 5 * 1024 * 1024) {
+    showPetImageError('Ảnh vượt quá dung lượng tối đa 5MB. Vui lòng chọn ảnh nhỏ hơn.');
+    return;
+  }
+
+  clearPetImageError();
+  selectedPetImage = file;
+  removePetImage = false;
+  if (petImagePreviewUrl) URL.revokeObjectURL(petImagePreviewUrl);
+  petImagePreviewUrl = URL.createObjectURL(file);
+  showPetImagePreview(petImagePreviewUrl);
+}
+
+function showPetImagePreview(source) {
+  const preview = document.getElementById('pet-image-preview');
+  preview.src = source;
+  preview.hidden = false;
+  document.getElementById('pet-image-empty').hidden = true;
+  document.getElementById('pet-image-actions').hidden = false;
+}
+
+function showEmptyPetImagePreview() {
+  document.getElementById('pet-image-preview').hidden = true;
+  document.getElementById('pet-image-preview').removeAttribute('src');
+  document.getElementById('pet-image-empty').hidden = false;
+  document.getElementById('pet-image-actions').hidden = true;
+}
+
+function showPetImageError(message) {
+  const error = document.getElementById('pet-image-error');
+  error.textContent = message;
+  error.hidden = false;
+  showToast(message, 'error');
+}
+
+function clearPetImageError() {
+  const error = document.getElementById('pet-image-error');
+  error.textContent = '';
+  error.hidden = true;
+}
+
+function clearPetImage() {
+  selectedPetImage = null;
+  removePetImage = true;
+  const input = document.getElementById('pet-image');
+  if (input) input.value = '';
+  if (petImagePreviewUrl) {
+    URL.revokeObjectURL(petImagePreviewUrl);
+    petImagePreviewUrl = null;
+  }
+  clearPetImageError();
+  showEmptyPetImagePreview();
+}
+
+function releasePetImagePreview() {
+  if (petImagePreviewUrl) URL.revokeObjectURL(petImagePreviewUrl);
+  petImagePreviewUrl = null;
+  selectedPetImage = null;
+  removePetImage = false;
+}
+
+function closePetModal() {
+  releasePetImagePreview();
+  ModalManager.close('pet-modal');
 }
 
 // Render Pets List
@@ -65,10 +193,12 @@ function renderPetsList() {
     return;
   }
 
-  container.innerHTML = filtered.map(pet => `
+  container.innerHTML = filtered.map(pet => {
+    const fallbackImage = 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400';
+    return `
     <div class="pet-card">
       <div class="pet-card-image-wrap">
-        <img src="${pet.image || 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400'}" alt="${pet.name}" class="pet-card-image">
+        <img src="${pet.image && !pet.image.startsWith(PET_IMAGE_REFERENCE_PREFIX) ? pet.image : fallbackImage}" data-pet-image="${pet.id}" alt="${pet.name}" class="pet-card-image">
         <span class="badge ${pet.species === 'cat' ? 'badge-primary' : 'badge-warning'} pet-card-badge">
           ${pet.species === 'cat' ? '🐱 Mèo' : '🐶 Chó'}
         </span>
@@ -112,7 +242,15 @@ function renderPetsList() {
         </div>
       </div>
     </div>
-  `).join('');
+  `;
+  }).join('');
+
+  filtered.forEach(pet => {
+    const image = container.querySelector(`[data-pet-image="${pet.id}"]`);
+    if (image) {
+      setPetImageSource(image, pet.image, 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400');
+    }
+  });
 }
 
 // Open Modal to Add Pet
@@ -127,8 +265,11 @@ function openPetModal(petToEdit = null) {
   const weightInput = document.getElementById('pet-weight');
   const colorInput = document.getElementById('pet-color');
   const notesInput = document.getElementById('pet-notes');
-  const imageInput = document.getElementById('pet-image');
   const imagePreview = document.getElementById('pet-image-preview');
+  releasePetImagePreview();
+  clearPetImageError();
+  document.getElementById('pet-form').reset();
+  showEmptyPetImagePreview();
 
   if (petToEdit) {
     modalTitle.textContent = `Chỉnh sửa hồ sơ: ${petToEdit.name}`;
@@ -141,22 +282,21 @@ function openPetModal(petToEdit = null) {
     weightInput.value = petToEdit.weight ? petToEdit.weight.replace(' kg', '') : '';
     colorInput.value = petToEdit.color || '';
     notesInput.value = petToEdit.notes || '';
-    imageInput.value = petToEdit.image || '';
-    imagePreview.src = petToEdit.image || '';
-    imagePreview.style.display = petToEdit.image ? 'block' : 'none';
+    const currentImage = petToEdit.image || '';
+    if (currentImage) {
+      showPetImagePreview('');
+      setPetImageSource(imagePreview, currentImage);
+    }
   } else {
     modalTitle.textContent = 'Thêm hồ sơ thú cưng mới';
-    document.getElementById('pet-form').reset();
     petIdInput.value = '';
-    imagePreview.src = '';
-    imagePreview.style.display = 'none';
   }
 
   ModalManager.open('pet-modal');
 }
 
 // Handle Pet Form Submission
-function handlePetFormSubmit(e) {
+async function handlePetFormSubmit(e) {
   e.preventDefault();
 
   const id = document.getElementById('pet-form-id').value;
@@ -168,66 +308,105 @@ function handlePetFormSubmit(e) {
   const weight = document.getElementById('pet-weight').value.trim();
   const color = document.getElementById('pet-color').value.trim();
   const notes = document.getElementById('pet-notes').value.trim();
-  let image = document.getElementById('pet-image').value.trim();
-
   if (!name || !breed) {
     showToast('Vui lòng nhập tên và giống của thú cưng!', 'warning');
     return;
   }
 
-  if (!image) {
-    // Default placeholder based on species
-    image = species === 'cat' 
-      ? 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=500'
-      : 'https://images.unsplash.com/photo-1552053831-71594a27632d?w=500';
-  }
-
   ModalManager.setLoading('pet-modal', true, 'Đang lưu hồ sơ thú cưng...');
-
-  setTimeout(() => {
+  try {
     let pets = getFromDB(DB_KEYS.PETS);
     const user = getCurrentUser();
+    const existingPet = id ? pets.find(pet => pet.id === id) : null;
+    const petId = id || `pet-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+    const oldImage = existingPet?.image || '';
+    const defaultImage = species === 'cat'
+      ? 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=500'
+      : 'https://images.unsplash.com/photo-1552053831-71594a27632d?w=500';
+    const previousImageId = oldImage.startsWith(PET_IMAGE_REFERENCE_PREFIX)
+      ? oldImage.slice(PET_IMAGE_REFERENCE_PREFIX.length)
+      : null;
+    let image = selectedPetImage
+      ? `${PET_IMAGE_REFERENCE_PREFIX}${petId}`
+      : removePetImage
+        ? ''
+        : oldImage || defaultImage;
+    const oldStoredImage = previousImageId
+      ? await getStoredPetImage(previousImageId)
+      : null;
+    let imageStoreChanged = false;
 
-    if (id) {
-      // Update
-      const index = pets.findIndex(p => p.id === id);
-      if (index > -1) {
+    try {
+      if (selectedPetImage) {
+        await writeStoredPetImage(petId, selectedPetImage);
+        imageStoreChanged = true;
+      } else if (removePetImage && previousImageId) {
+        await deleteStoredPetImage(previousImageId);
+        imageStoreChanged = true;
+      }
+
+      if (id) {
+        const index = pets.findIndex(p => p.id === id);
+        if (index === -1) throw new Error('Không tìm thấy hồ sơ thú cưng cần cập nhật.');
         pets[index] = {
           ...pets[index],
           name, species, breed, gender, birthDate,
           weight: weight ? `${weight} kg` : pets[index].weight,
           color, notes, image
         };
-        showToast(`Đã cập nhật hồ sơ bé "${name}" thành công!`, 'success');
+      } else {
+        pets.unshift({
+          id: petId,
+          name,
+          species,
+          breed,
+          gender,
+          birthDate,
+          age: birthDate ? `${new Date().getFullYear() - new Date(birthDate).getFullYear()} tuổi` : '1 tuổi',
+          weight: weight ? `${weight} kg` : '3.0 kg',
+          color,
+          notes,
+          image,
+          microchip: `VN-${Math.floor(1000 + Math.random() * 9000)}-${species.toUpperCase()}`,
+          ownerId: user ? user.id : 'user-01',
+          ownerName: user ? user.name : 'Khách hàng',
+          vaccinated: false
+        });
       }
-    } else {
-      // Create new
-      const newPet = {
-        id: 'pet-' + Date.now().toString().slice(-4),
-        name,
-        species,
-        breed,
-        gender,
-        birthDate,
-        age: birthDate ? `${new Date().getFullYear() - new Date(birthDate).getFullYear()} tuổi` : '1 tuổi',
-        weight: weight ? `${weight} kg` : '3.0 kg',
-        color,
-        notes,
-        image,
-        microchip: `VN-${Math.floor(1000 + Math.random() * 9000)}-${species.toUpperCase()}`,
-        ownerId: user ? user.id : 'user-01',
-        ownerName: user ? user.name : 'Khách hàng',
-        vaccinated: false
-      };
-      pets.unshift(newPet);
-      showToast(`Đã thêm mới hồ sơ bé "${name}"!`, 'success');
+
+      saveToDB(DB_KEYS.PETS, pets);
+    } catch (error) {
+      if (imageStoreChanged) {
+        if (previousImageId && oldStoredImage) {
+          await writeStoredPetImage(previousImageId, oldStoredImage);
+        }
+        if (selectedPetImage && petId !== previousImageId) {
+          await deleteStoredPetImage(petId);
+        } else if (!oldStoredImage) {
+          await deleteStoredPetImage(petId);
+        }
+      }
+      throw error;
     }
 
-    saveToDB(DB_KEYS.PETS, pets);
+    if (selectedPetImage && previousImageId && previousImageId !== petId) {
+      try {
+        await deleteStoredPetImage(previousImageId);
+      } catch (error) {
+        console.error('Không thể dọn ảnh cũ của hồ sơ thú cưng:', error);
+        showToast('Đã lưu hồ sơ nhưng không thể dọn ảnh cũ khỏi bộ nhớ.', 'warning');
+      }
+    }
+
+    showToast(id ? `Đã cập nhật hồ sơ bé "${name}" thành công!` : `Đã thêm mới hồ sơ bé "${name}"!`, 'success');
     ModalManager.setLoading('pet-modal', false);
-    ModalManager.close('pet-modal');
+    closePetModal();
     renderPetsList();
-  }, 600);
+  } catch (error) {
+    console.error('Không thể lưu hồ sơ thú cưng:', error);
+    ModalManager.setLoading('pet-modal', false);
+    showToast(`Không thể lưu hồ sơ thú cưng: ${error.message}`, 'error');
+  }
 }
 
 // Edit Pet
@@ -249,8 +428,25 @@ function confirmDeletePet(petId, petName) {
     isDanger: true,
     onConfirm: async () => {
       let pets = getFromDB(DB_KEYS.PETS);
+      const pet = pets.find(p => p.id === petId);
+      const oldImage = pet?.image || '';
+      const storedImage = oldImage.startsWith(PET_IMAGE_REFERENCE_PREFIX)
+        ? await getStoredPetImage(oldImage.slice(PET_IMAGE_REFERENCE_PREFIX.length))
+        : null;
       pets = pets.filter(p => p.id !== petId);
-      saveToDB(DB_KEYS.PETS, pets);
+      try {
+        if (storedImage) {
+          await deleteStoredPetImage(oldImage.slice(PET_IMAGE_REFERENCE_PREFIX.length));
+        }
+        saveToDB(DB_KEYS.PETS, pets);
+      } catch (error) {
+        if (storedImage) {
+          await writeStoredPetImage(oldImage.slice(PET_IMAGE_REFERENCE_PREFIX.length), storedImage);
+        }
+        console.error('Không thể xóa hồ sơ thú cưng:', error);
+        showToast(`Không thể xóa hồ sơ thú cưng: ${error.message}`, 'error');
+        return;
+      }
       showToast(`Đã xóa hồ sơ của "${petName}"`, 'success');
       renderPetsList();
     }
@@ -269,7 +465,11 @@ function initPetDetailPage() {
   // Basic Info
   document.getElementById('detail-pet-name').textContent = pet.name;
   document.getElementById('detail-pet-breed').textContent = `${pet.breed} • ${pet.gender}`;
-  document.getElementById('detail-pet-image').src = pet.image;
+  setPetImageSource(
+    document.getElementById('detail-pet-image'),
+    pet.image,
+    'https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400'
+  );
   document.getElementById('detail-pet-species').textContent = pet.species === 'cat' ? 'Mèo' : 'Chó';
   document.getElementById('detail-pet-age').textContent = pet.age || '---';
   document.getElementById('detail-pet-weight').textContent = pet.weight || '---';
@@ -320,4 +520,3 @@ function initPetDetailPage() {
     }
   }
 }
-
