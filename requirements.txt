@@ -1,0 +1,9 @@
+Django>=4.2.16,<5.0
+PyMySQL>=1.1.1
+cryptography>=43.0.1
+python-dotenv>=1.0.1
+Pillow>=10.4.0
+celery>=5.4.0
+redis>=5.0.8
+whitenoise>=6.7.0
+requests>=2.32.3
