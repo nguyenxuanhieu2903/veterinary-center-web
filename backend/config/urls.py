@@ -8,6 +8,8 @@ urlpatterns = [
 
     # API v1 Endpoints
     path('api/v1/accounts/', include('apps.accounts.urls', namespace='accounts')),
+    path('api/v1/pets/', include('apps.pets.urls', namespace='pets')),
+    path('api/v1/bookings/', include('apps.bookings.urls', namespace='bookings')),
 ]
 
 if settings.DEBUG:

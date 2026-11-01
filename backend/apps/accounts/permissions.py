@@ -70,3 +70,4 @@ class IsStaffOrAdmin(BasePermission):
             request.user.is_authenticated and
             (request.user.role in [Role.STAFF, Role.ADMIN] or request.user.is_superuser or request.user.is_staff)
         )
+

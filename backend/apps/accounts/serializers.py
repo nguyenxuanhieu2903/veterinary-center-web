@@ -122,3 +122,4 @@ class UserProfileUpdateSerializer(serializers.ModelSerializer):
         if value and User.objects.filter(email__iexact=value).exclude(pk=user.pk).exists():
             raise serializers.ValidationError("Email này đã được sử dụng bởi một tài khoản khác.")
         return value
+

@@ -26,3 +26,4 @@ urlpatterns = [
     path('test/staff-only/', StaffDashboardTestView.as_view(), name='test_staff_only'),
     path('test/admin-only/', AdminPanelTestView.as_view(), name='test_admin_only'),
 ]
+

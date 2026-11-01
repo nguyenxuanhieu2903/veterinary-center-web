@@ -43,6 +43,8 @@ INSTALLED_APPS = [
 
     # Local apps
     'apps.accounts',
+    'apps.pets',
+    'apps.bookings',
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -179,6 +181,8 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Ho_Chi_Minh'
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+CELERY_BROKER_CONNECTION_MAX_RETRIES = 2
 
 # Email Configuration (SMTP)
 EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
