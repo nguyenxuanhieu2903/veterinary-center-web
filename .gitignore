@@ -60,3 +60,6 @@ celerybeat.pid
 .DS_Store
 Thumbs.db
 
+# readme file
+IMPLEMENTATION_PLAN.md
+PRODUCT_SPECIFICATION.md
