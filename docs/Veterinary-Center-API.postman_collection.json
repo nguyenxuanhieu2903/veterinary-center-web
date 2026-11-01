@@ -1,0 +1,286 @@
+{
+  "info": {
+    "_postman_id": "80054845-cb3c-411b-bee7-66a42c88fc90",
+    "name": "Veterinary-Center-API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "49129388",
+    "_collection_link": "https://go.postman.co/collection/49129388-80054845-cb3c-411b-bee7-66a42c88fc90?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "http://127.0.0.1:8000/api/v1/accounts/register/ Copy",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"username\": \"customer_a\",\r\n  \"password\": \"Password123@\",\r\n  \"password_confirm\": \"Password123@\",\r\n  \"email\": \"customera@gmail.com\",\r\n  \"first_name\": \"Nguyen\",\r\n  \"last_name\": \"Van A\",\r\n  \"phone_number\": \"0901111111\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/v1/accounts/register/",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "v1",
+            "accounts",
+            "register",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://127.0.0.1:8000/api/v1/accounts/login/ Copy",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"username\": \"customer_a\",\r\n  \"password\": \"Password123@\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/v1/accounts/login/",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "v1",
+            "accounts",
+            "login",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://127.0.0.1:8000/api/v1/accounts/login/ Copy",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"username\": \"customer_b\",\r\n  \"password\": \"Password123@\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/v1/accounts/login/",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "v1",
+            "accounts",
+            "login",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://127.0.0.1:8000/api/v1/pets/ Copy",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzkzNjQwMDA1LCJpYXQiOjE3OTM1NTM2MDUsImp0aSI6Ijg1Yjg1ODIyNjYwZjRjOTJiZWY4MDk1OTdkNTdmNGNhIiwidXNlcl9pZCI6IjEifQ.Ej2cyR40ZZTMGKtxdAVh7is-nkGw_z6lJFmRGvIHqZg",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Cậu Vàng\",\r\n  \"species\": \"Chó\",\r\n  \"breed\": \"Shiba Inu\",\r\n  \"gender\": \"MALE\",\r\n  \"birth_date\": \"2023-05-15\",\r\n  \"weight\": 8.5,\r\n  \"notes\": \"Rất hay cắn dép\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/v1/pets/",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "v1",
+            "pets",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://127.0.0.1:8000/api/v1/bookings/appointments/ Copy",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzkzNjQwMDA1LCJpYXQiOjE3OTM1NTM2MDUsImp0aSI6Ijg1Yjg1ODIyNjYwZjRjOTJiZWY4MDk1OTdkNTdmNGNhIiwidXNlcl9pZCI6IjEifQ.Ej2cyR40ZZTMGKtxdAVh7is-nkGw_z6lJFmRGvIHqZg",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"pet\": 1,\r\n  \"service\": 1,\r\n  \"doctor\": 4,\r\n  \"appointment_date\": \"2026-11-10\",\r\n  \"time_slot\": \"09:00-10:00\",\r\n  \"notes\": \"Khám định kỳ cho bé Vàng\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/v1/bookings/appointments/",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "v1",
+            "bookings",
+            "appointments",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://127.0.0.1:8000/api/v1/pets/1/ Copy",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzkzNjQwMTMzLCJpYXQiOjE3OTM1NTM3MzMsImp0aSI6ImU2MzdlM2JjZWJmOTQ1MWY5NGQ5NzgxYmU1NmNmMzU4IiwidXNlcl9pZCI6IjIifQ.BDB0JaBl1JQ3fV6WCOIOb7YpydspiXJPy9Pi_KjsntQ",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/v1/pets/1/",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "v1",
+            "pets",
+            "1",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://127.0.0.1:8000/api/v1/bookings/appointments/ Copy",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzkzNjQwMTMzLCJpYXQiOjE3OTM1NTM3MzMsImp0aSI6ImU2MzdlM2JjZWJmOTQ1MWY5NGQ5NzgxYmU1NmNmMzU4IiwidXNlcl9pZCI6IjIifQ.BDB0JaBl1JQ3fV6WCOIOb7YpydspiXJPy9Pi_KjsntQ",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"pet\": 1,\r\n  \"service\": 1,\r\n  \"doctor\": 4,\r\n  \"appointment_date\": \"2026-11-10\",\r\n  \"time_slot\": \"09:00-10:00\",\r\n  \"notes\": \"Cố tình đặt trùng ca\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/v1/bookings/appointments/",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "v1",
+            "bookings",
+            "appointments",
+            ""
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
